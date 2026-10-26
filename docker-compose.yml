@@ -1,0 +1,19 @@
+# Uso local (PowerShell o bash):
+#   docker compose up --build
+# Abre http://localhost:8000
+#
+# Crea un archivo .env junto a este compose con:
+#   TMDB_API_KEY=tu_key
+#   STREAM_SIGN_KEY=una-clave-secreta-larga
+#   CINEPRO_BASE_URL=   (opcional)
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      PORT: "8000"
+    restart: unless-stopped

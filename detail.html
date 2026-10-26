@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineBusca — Películas, series y anime</title>
+<style>
+  :root{
+    --bg:#0a1ea0;
+    --bg-dark:#071577;
+    --azul:#3b82f6;
+    --azul-claro:#8ab8ff;
+    --texto:#eaf2ff;
+    --apagado:#a9c0e8;
+    --star:#facc15;
+    --radio:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg) 10%,var(--bg) 80%,var(--bg-dark) 100%);
+    color:var(--texto);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  a{text-decoration:none;color:inherit}
+  :focus-visible{outline:2px solid var(--azul-claro);outline-offset:2px;border-radius:6px}
+  ::selection{background:rgba(90,160,255,.45)}
+  svg{display:block}
+
+  /* ============ NAVBAR ============ */
+  .navbar{
+    position:absolute;top:0;left:0;right:0;z-index:20;
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;
+    padding:18px clamp(18px,3.5vw,48px);
+  }
+  .logo{font-size:22px;font-weight:800;letter-spacing:-.3px;color:#fff;white-space:nowrap}
+  .logo span{color:#66a3ff}
+  .search{
+    justify-self:center;width:min(760px,100%);
+    display:flex;align-items:center;gap:8px;
+    height:46px;padding:0 6px 0 16px;border-radius:999px;
+    background:linear-gradient(90deg,rgba(59,130,246,.38),rgba(59,130,246,.16));
+    border:1px solid rgba(147,197,253,.38);
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 0 4px rgba(40,90,220,.12),0 10px 34px rgba(3,10,60,.35);
+    transition:box-shadow .25s,border-color .25s;
+  }
+  .search:focus-within{border-color:rgba(180,215,255,.7);box-shadow:0 0 0 5px rgba(70,130,255,.22)}
+  .search .icon{color:#cfe0ff;flex:none}
+  .search input{
+    flex:1;min-width:0;background:transparent;border:none;color:#fff;font-size:13.5px;
+  }
+  .search input::placeholder{color:rgba(215,232,255,.72)}
+  .search input:focus{outline:none}
+  .search .sel{
+    display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:9px;
+    color:#dce8ff;font-size:12.5px;font-weight:600;white-space:nowrap;
+  }
+  .search .sel:hover{background:rgba(255,255,255,.1)}
+  .search .go{
+    flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(180deg,#4f8dff,#2f6bdd);color:#fff;
+    box-shadow:0 4px 14px rgba(30,90,230,.5);
+  }
+  .search .go:hover{filter:brightness(1.12)}
+  .nav-actions{display:flex;align-items:center;gap:10px}
+  .icon-btn{
+    width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+    color:#dce8ff;transition:background .2s;
+  }
+  .icon-btn:hover{background:rgba(255,255,255,.14)}
+  .icon-btn.avatar{background:linear-gradient(180deg,#5ea0ff,#2f6bdd);color:#fff}
+
+  /* ============ HERO ============ */
+  .hero{position:relative;min-height:clamp(560px,92vh,860px);overflow:hidden;display:flex;align-items:center}
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(1100px 620px at 74% 22%,rgba(120,190,255,.5),transparent 62%),
+      radial-gradient(900px 520px at 55% 75%,rgba(40,120,255,.32),transparent 62%),
+      linear-gradient(180deg,#041034 0%,#0a2a8f 48%,var(--bg) 100%);
+  }
+  .hero-sun{
+    position:absolute;z-index:1;right:16%;top:30%;width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(circle at 42% 35%,rgba(228,244,255,.95),rgba(120,190,255,.5) 45%,rgba(120,190,255,0) 72%);
+    filter:blur(2px);
+  }
+  .stars{
+    position:absolute;inset:0;z-index:1;opacity:.65;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 22%,rgba(255,255,255,.8),transparent),
+      radial-gradient(1px 1px at 28% 12%,rgba(255,255,255,.6),transparent),
+      radial-gradient(1.5px 1.5px at 44% 30%,rgba(255,255,255,.7),transparent),
+      radial-gradient(1px 1px at 62% 10%,rgba(255,255,255,.55),transparent),
+      radial-gradient(1.5px 1.5px at 82% 26%,rgba(255,255,255,.75),transparent),
+      radial-gradient(1px 1px at 92% 44%,rgba(255,255,255,.5),transparent),
+      radial-gradient(1px 1px at 8% 48%,rgba(255,255,255,.5),transparent);
+  }
+  .dunes{position:absolute;z-index:2;bottom:-2px;left:0;width:100%;height:38%}
+  .hero::after{ /* velo para legibilidad del texto */
+    content:"";position:absolute;inset:0;z-index:3;
+    background:linear-gradient(90deg,rgba(4,10,42,.88) 0%,rgba(4,10,42,.45) 38%,transparent 62%);
+  }
+  .hero-content{position:relative;z-index:5;padding:110px clamp(20px,4.5vw,64px) 90px;max-width:660px}
+  .hero-badge{
+    display:inline-block;padding:6px 14px;border-radius:999px;
+    font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:#cfe0ff;background:rgba(40,90,220,.38);border:1px solid rgba(140,190,255,.55);
+  }
+  .hero-content h1{
+    margin:14px 0 12px;font-size:clamp(48px,7vw,86px);font-weight:800;
+    letter-spacing:-2px;line-height:.95;color:#fff;
+    text-shadow:0 6px 40px rgba(0,20,120,.55);
+  }
+  .hero-meta{display:flex;align-items:center;flex-wrap:wrap;gap:16px;font-size:13.5px;color:#dce8ff;font-weight:600}
+  .hero-meta .rate{display:flex;align-items:center;gap:6px}
+  .star{color:var(--star)}
+  .hero-synopsis{margin-top:16px;max-width:440px;font-size:14.5px;line-height:1.7;color:#cfdcf7}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:12px;
+    font-size:14.5px;font-weight:700;transition:transform .2s,filter .2s,background .2s;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-play{
+    background:linear-gradient(180deg,#f2f7ff,#b9d4ff);color:#0b2a86;
+    box-shadow:0 10px 34px rgba(90,160,255,.5);
+  }
+  .btn-info{
+    background:rgba(10,30,120,.35);color:#eaf2ff;
+    border:1px solid rgba(140,190,255,.6);backdrop-filter:blur(6px);
+  }
+  .btn-info:hover{background:rgba(30,60,160,.5)}
+  .hero-dots{position:absolute;z-index:6;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+  .dot{width:7px;height:7px;border-radius:99px;background:rgba(190,215,255,.45);transition:all .3s;padding:0}
+  .dot:hover{background:rgba(220,235,255,.8)}
+  .dot.active{width:22px;background:#dce8ff}
+
+  /* ============ FILAS DE TARJETAS ============ */
+  main{padding:0 clamp(18px,3.5vw,48px);max-width:1720px;margin:0 auto}
+  .row{margin-top:46px}
+  .row-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+  .row-head h2{
+    display:flex;align-items:center;gap:12px;
+    font-size:clamp(20px,2.4vw,27px);font-weight:800;letter-spacing:-.4px;color:#fff;
+  }
+  .row-head h2::before{
+    content:"";width:4px;height:26px;border-radius:2px;
+    background:linear-gradient(180deg,#7db0ff,#2f6bff);
+  }
+  .ver-todos{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#9cc3ff;transition:color .2s}
+  .ver-todos:hover{color:#dce8ff}
+  .cards{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px}
+  .card{cursor:pointer}
+  .poster{
+    position:relative;aspect-ratio:2/3;border-radius:10px;overflow:hidden;
+    background-size:cover;
+    box-shadow:0 8px 26px rgba(3,10,60,.45);
+    transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s;
+  }
+  .poster::before{ /* brillo superior */
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(200deg,rgba(255,255,255,.2),transparent 34%);
+  }
+  .poster::after{ /* sombra inferior para el título */
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 52%,rgba(2,6,30,.55) 100%);
+  }
+  .card:hover .poster{
+    transform:translateY(-6px) scale(1.02);
+    box-shadow:0 18px 44px rgba(3,10,60,.6),0 0 0 1px rgba(140,190,255,.4);
+  }
+  .poster-title{
+    position:absolute;z-index:2;left:8px;right:8px;bottom:10px;
+    font-size:clamp(9px,.85vw,13px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    text-align:center;line-height:1.2;color:rgba(255,255,255,.94);
+    text-shadow:0 2px 10px rgba(0,0,0,.55);
+  }
+  .card-title{
+    margin-top:10px;font-size:13.5px;font-weight:700;color:#fff;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .card-meta{display:flex;align-items:center;gap:12px;margin-top:4px;font-size:12px;color:var(--apagado);font-weight:600}
+  .card-meta .rate{display:flex;align-items:center;gap:5px;color:#dce8ff}
+
+  /* ============ CTA ============ */
+  .cta{
+    position:relative;overflow:hidden;margin:60px auto 80px;
+    border-radius:20px;border:1px solid rgba(140,190,255,.35);
+    background:linear-gradient(100deg,#0c2fd0 0%,#0a26a8 55%,#0d3ae0 100%);
+    padding:28px 32px;display:flex;align-items:center;gap:20px;
+    box-shadow:0 20px 60px rgba(3,10,60,.45);
+  }
+  .cta::before{ /* resplandor "pantalla/luna" */
+    content:"";position:absolute;right:6%;bottom:-30%;width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle at 40% 35%,rgba(200,228,255,.85),rgba(120,180,255,.4) 45%,rgba(120,180,255,0) 72%);
+  }
+  .cta-figure{position:absolute;right:14%;bottom:-6px;width:210px;opacity:.95}
+  .cta-icon{
+    position:relative;z-index:2;flex:none;width:46px;height:46px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(255,255,255,.16);color:#dce8ff;
+    border:1px solid rgba(180,215,255,.4);
+  }
+  .cta-text{position:relative;z-index:2;flex:1;min-width:0}
+  .cta-text h3{font-size:clamp(18px,2.2vw,24px);font-weight:800;letter-spacing:-.3px;color:#fff;line-height:1.25}
+  .cta-text p{margin-top:8px;font-size:13px;line-height:1.6;color:#cfe0ff;max-width:520px}
+  .cta-play{
+    position:relative;z-index:2;flex:none;width:54px;height:54px;border-radius:50%;
+    display:grid;place-items:center;color:#fff;
+    background:linear-gradient(180deg,#4f8dff,#2456d8);
+    box-shadow:0 12px 34px rgba(40,110,255,.55);transition:transform .2s;
+  }
+  .cta-play:hover{transform:scale(1.08)}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1280px){ .cards{grid-template-columns:repeat(4,1fr)} }
+  @media (max-width:900px){
+    .cards{grid-template-columns:repeat(3,1fr)}
+    .search .sel{display:none}
+  }
+  @media (max-width:640px){
+    .cards{grid-template-columns:repeat(2,1fr);gap:14px}
+    .navbar{gap:12px;padding:14px 16px}
+    .logo{font-size:18px}
+    .cta{flex-wrap:wrap;padding:24px}
+    .hero-content{padding-top:120px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <a href="#" class="logo">Cine<span>Busca</span></a>
+
+  <div class="search" role="search">
+    <svg class="icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="text" placeholder="Busca una película, serie o anime..." aria-label="Buscar">
+    <button class="sel">Todos <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
+    <button class="sel">Automático <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
+    <button class="go" aria-label="Buscar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+  </div>
+
+  <div class="nav-actions">
+    <button class="icon-btn" aria-label="Notificaciones"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <button class="icon-btn avatar" aria-label="Perfil"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-sun"></div>
+  <div class="stars"></div>
+
+  <!-- Fondo decorativo placeholder (sin imágenes reales) -->
+  <svg class="dunes" viewBox="0 0 1440 340" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 215 C 240 130 420 250 700 200 C 860 172 980 168 1080 178 C 1240 194 1330 210 1440 185 L1440 340 L0 340 Z" fill="#08207e"/>
+    <g transform="translate(1010,172)" fill="#030b33">
+      <circle cx="0" cy="-46" r="6.5"/>
+      <path d="M0 -40 c -7 4 -10 12 -11 22 l -2 18 h 26 l -2 -18 c -1 -10 -4 -18 -11 -22 z"/>
+    </g>
+    <path d="M0 262 C 320 205 600 300 900 252 C 1180 208 1320 285 1440 255 L1440 340 L0 340 Z" fill="#051461"/>
+  </svg>
+
+  <div class="hero-content">
+    <span class="hero-badge">Película</span>
+    <h1>Duna</h1>
+    <div class="hero-meta">
+      <span class="rate"><svg class="star" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>7.8</span>
+      <span>2021</span><span>2h 35m</span><span>Ciencia ficción</span>
+    </div>
+    <p class="hero-synopsis">Paul Atreides, un joven brillante y talentoso nacido en un gran destino más allá de su entendimiento, debe viajar al planeta más peligroso del universo para asegurar el futuro de su familia y de su pueblo.</p>
+    <div class="hero-actions">
+      <button class="btn btn-play"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <button class="btn btn-info">Información</button>
+    </div>
+  </div>
+
+  <div class="hero-dots" role="tablist" aria-label="Carrusel de destacados">
+    <button class="dot active"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
+  </div>
+</section>
+
+<!-- ================= CATÁLOGO ================= -->
+<main>
+  <section class="row">
+    <div class="row-head">
+      <h2>Relacionados</h2>
+      <a class="ver-todos" href="#">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+    </div>
+    <div class="cards" id="row-relacionados"></div>
+  </section>
+
+  <section class="row">
+    <div class="row-head">
+      <h2>Más populares</h2>
+      <a class="ver-todos" href="#">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+    </div>
+    <div class="cards" id="row-populares"></div>
+  </section>
+
+  <section class="row">
+    <div class="row-head">
+      <h2>Series en tendencia</h2>
+      <a class="ver-todos" href="#">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+    </div>
+    <div class="cards" id="row-series"></div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="cta">
+    <svg class="cta-figure" viewBox="0 0 200 140" aria-hidden="true">
+      <circle cx="100" cy="38" r="26" fill="#06124a"/>
+      <path d="M40 140 C46 96 70 78 100 78 C130 78 154 96 160 140 Z" fill="#06124a"/>
+    </svg>
+    <div class="cta-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6z"/><path d="M13 5v2"/><path d="M13 11v2"/><path d="M13 17v2"/></svg></div>
+    <div class="cta-text">
+      <h3>Tu próxima historia<br>te está esperando</h3>
+      <p>Descubre miles de películas, series y animes en un solo lugar.<br>Busca, reproduce y disfruta sin límites.</p>
+    </div>
+    <button class="cta-play" aria-label="Reproducir"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  </section>
+</main>
+
+<script>
+/* =====================================================================
+   DATOS DE EJEMPLO (planos, sin API).
+   Cuando conectes TMDB, sustituye estos arrays por la respuesta de
+   fetch(`https://api.themoviedb.org/3/...`) mapeando:
+   title/name -> t, release_date -> y, vote_average -> r,
+   poster_path -> imagen real del .poster
+===================================================================== */
+const DATA = {
+  relacionados: [
+    {t:"Dune: Parte Dos",        y:2024, r:8.5, pt:"DUNE",                 bg:"linear-gradient(180deg,#ffc46b,#e07a1f 45%,#7a2d05)", art:"radial-gradient(circle at 50% 30%, rgba(255,244,214,.9), rgba(255,196,107,0) 55%)"},
+    {t:"Caos",                   y:2022, r:6.2, pt:"CAOS",                 bg:"linear-gradient(200deg,#eafcff,#8fdcec 45%,#0d7fae)",    art:"linear-gradient(115deg, rgba(255,255,255,.55) 0 38%, rgba(255,255,255,0) 38%)"},
+    {t:"El renacido",            y:2015, r:7.8, pt:"EL RENACIDO",          bg:"linear-gradient(200deg,#e8f1f8,#9dc2d8 50%,#2c4a63)",    art:"radial-gradient(circle at 30% 25%, rgba(255,255,255,.7), rgba(255,255,255,0) 50%)"},
+    {t:"Matrix",                 y:1999, r:8.7, pt:"MATRIX",               bg:"linear-gradient(200deg,#123f22,#072712 55%,#02120a)",    art:"repeating-linear-gradient(90deg, rgba(0,255,140,.14) 0 2px, rgba(0,0,0,0) 2px 7px)"},
+    {t:"Blade Runner 2049",      y:2017, r:8.0, pt:"BLADE RUNNER 2049",    bg:"linear-gradient(200deg,#3a1c0a,#1c0e06 55%,#070409)",    art:"radial-gradient(circle at 50% 42%, rgba(255,170,60,.75), rgba(255,120,30,0) 55%)"},
+    {t:"Máquinas",               y:2021, r:6.1, pt:"MÁQUINAS",             bg:"linear-gradient(200deg,#f6fcff,#cfe9ff 45%,#5fa8e6)",    art:"radial-gradient(circle at 70% 20%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%)"},
+    {t:"Dune (1984)",            y:1984, r:6.1, pt:"DUNE",                 bg:"linear-gradient(200deg,#dcdcdc,#9a9a9a 50%,#404040)",    art:"radial-gradient(circle at 50% 35%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%)"},
+    {t:"El señor de los anillos",y:2001, r:8.8, pt:"EL SEÑOR DE LOS ANILLOS",bg:"linear-gradient(200deg,#f3d9a4,#c08a3e 50%,#4d2c12)",  art:"radial-gradient(circle at 50% 30%, rgba(255,236,190,.8), rgba(255,236,190,0) 55%)"}
+  ],
+  populares: [
+    {t:"Interstellar",  y:2014, r:8.6, pt:"INTERSTELLAR", bg:"linear-gradient(200deg,#f2f6fa,#c7d3de 45%,#5a6b7a)", art:"radial-gradient(circle at 50% 42%, transparent 26%, rgba(255,255,255,.55) 30%, transparent 36%)"},
+    {t:"Inception",     y:2010, r:8.8, pt:"INCEPTION",    bg:"linear-gradient(200deg,#e6edf3,#a9bccb 45%,#33475a)", art:"linear-gradient(0deg, rgba(20,35,50,.55), transparent 50%)"},
+    {t:"The Batman",    y:2022, r:7.8, pt:"THE BATMAN",   bg:"linear-gradient(200deg,#a01212,#5a0808 55%,#160404)", art:"radial-gradient(circle at 50% 30%, rgba(255,60,60,.5), transparent 60%)"},
+    {t:"Avatar",        y:2009, r:7.8, pt:"AVATAR",       bg:"linear-gradient(200deg,#a5f2e8,#2fb9cc 45%,#0a4f96)", art:"radial-gradient(circle at 40% 30%, rgba(255,255,255,.5), transparent 55%)"},
+    {t:"Shrek",         y:2001, r:7.9, pt:"SHREK",        bg:"linear-gradient(200deg,#e2f7ac,#93cc4a 45%,#417c1f)", art:"radial-gradient(circle at 50% 25%, rgba(255,255,220,.55), transparent 55%)"},
+    {t:"Forrest Gump",  y:1994, r:8.8, pt:"FORREST GUMP", bg:"linear-gradient(200deg,#eef9ff,#c6e4f7 50%,#84b9dc)", art:"radial-gradient(circle at 50% 20%, rgba(255,255,255,.85), transparent 55%)"},
+    {t:"Gladiator",     y:2000, r:6.5, pt:"GLADIATOR",    bg:"linear-gradient(200deg,#ecca92,#b47a3c 50%,#4e2c15)", art:"radial-gradient(circle at 50% 35%, rgba(255,220,160,.6), transparent 60%)"},
+    {t:"Toy Story",     y:1995, r:8.3, pt:"TOY STORY",    bg:"linear-gradient(200deg,#d6ecff,#93cbf7 45%,#2f7cce)", art:"radial-gradient(circle at 30% 25%, rgba(255,255,255,.7), transparent 50%)"}
+  ],
+  series: [
+    {t:"Breaking Bad",     y:2008, r:9.5, pt:"BREAKING BAD",    bg:"linear-gradient(200deg,#f0e07c,#c8b32f 45%,#6d5d15)", art:"radial-gradient(circle at 60% 30%, rgba(255,255,230,.6), transparent 55%)"},
+    {t:"Stranger Things",  y:2016, r:8.7, pt:"STRANGER THINGS", bg:"linear-gradient(200deg,#650c0c,#320505 55%,#0d0202)", art:"radial-gradient(circle at 50% 60%, rgba(255,40,40,.45), transparent 60%)"},
+    {t:"The Last of Us",   y:2023, r:8.8, pt:"THE LAST OF US",  bg:"linear-gradient(200deg,#c2d1ae,#82976e 45%,#32402c)", art:"radial-gradient(circle at 40% 25%, rgba(240,255,220,.5), transparent 55%)"},
+    {t:"Game of Thrones",  y:2011, r:9.2, pt:"GAME OF THRONES", bg:"linear-gradient(200deg,#67788a,#2e3947 55%,#0b1016)", art:"radial-gradient(circle at 50% 30%, rgba(200,225,255,.35), transparent 60%)"},
+    {t:"The Mandalorian",  y:2019, r:8.7, pt:"THE MANDALORIAN", bg:"linear-gradient(200deg,#cfa76e,#7e5c31 50%,#261a09)", art:"radial-gradient(circle at 50% 40%, rgba(255,215,150,.5), transparent 60%)"},
+    {t:"WandaVision",      y:2021, r:8.1, pt:"WANDAVISION",     bg:"linear-gradient(200deg,#ff6d8c,#cf1d52 50%,#5c0b2c)", art:"radial-gradient(circle at 50% 30%, rgba(255,180,200,.55), transparent 60%)"},
+    {t:"Loki",             y:2021, r:8.2, pt:"LOKI",            bg:"linear-gradient(200deg,#23422e,#122a1c 55%,#071009)", art:"radial-gradient(circle at 50% 35%, rgba(220,190,90,.4), transparent 60%)"},
+    {t:"Rick y Morty",     y:2013, r:9.2, pt:"RICK Y MORTY",    bg:"linear-gradient(200deg,#b7e86e,#5cae33 50%,#20522e)", art:"radial-gradient(circle at 60% 40%, rgba(220,255,180,.55), transparent 55%)"}
+  ]
+};
+
+const STAR = '<svg class="star" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>';
+
+function renderRow(id, items){
+  document.getElementById(id).innerHTML = items.map(m => `
+    <article class="card" tabindex="0" aria-label="${m.t} (${m.y}), puntuación ${m.r.toFixed(1)}">
+      <div class="poster" style="background-image:${m.art},${m.bg}">
+        <span class="poster-title">${m.pt}</span>
+      </div>
+      <h3 class="card-title">${m.t}</h3>
+      <div class="card-meta">
+        <span>${m.y}</span>
+        <span class="rate">${STAR}${m.r.toFixed(1)}</span>
+      </div>
+    </article>`).join("");
+}
+renderRow("row-relacionados", DATA.relacionados);
+renderRow("row-populares",    DATA.populares);
+renderRow("row-series",       DATA.series);
+
+/* Puntos del carrusel del hero (solo visual) */
+document.querySelectorAll(".hero-dots .dot").forEach(dot => {
+  dot.addEventListener("click", () => {
+    document.querySelectorAll(".hero-dots .dot").forEach(d => d.classList.remove("active"));
+    dot.classList.add("active");
+  });
+});
+</script>
+</body>
+</html>

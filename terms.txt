@@ -1,0 +1,241 @@
+TÉRMINOS Y CONDICIONES DE USO
+Kinora — kinora.com.co
+
+Versión: 2.0
+Última actualización: 24 de octubre de 2026
+
+ÍNDICE
+En pocas palabras
+Operador, anonimato y naturaleza del Servicio
+Aceptación, edad y capacidad
+Descripción del Servicio y alcance
+Uso permitido y prohibiciones
+Contenidos de terceros, reproducción y fuentes
+Derechos de autor: notificación y retirada
+Propiedad intelectual del Sitio y atribuciones
+Publicidad y servicios de terceros
+Subtítulos, etiquetas de audio e idioma
+Contenido para adultos y clasificaciones
+Disponibilidad, mantenimiento y limitación técnica
+Exención y limitación de responsabilidad
+Indemnidad
+Protección de datos y cookies
+Modificaciones
+Suspensión y terminación
+Legislación aplicable y jurisdicción
+Contacto
+Disposiciones generales
+Anexo — Atribuciones
+0. EN POCAS PALABRAS
+Kinora es un buscador, índice y capa de interfaz para consultar películas, series y anime. La información del catálogo proviene de terceros, principalmente de un proveedor de metadatos.
+Kinora no aloja ni almacena en sus servidores los archivos de video o audio. Cuando hay reproducción disponible, proviene de terceros.
+Kinora no es titular de los derechos de las obras ni garantiza que las fuentes de terceros sean lícitas en todos los países, estén disponibles o sean seguras. Usted es responsable de que su uso cumpla la ley de su país.
+El operador opera bajo la marca Kinora y no publica su nombre ni su identificación.
+Si es titular de derechos y algo accesible desde el Sitio le afecta, puede pedir su retirada siguiendo la sección 6.
+El Sitio muestra publicidad y usa cookies. Sección 8 y Política de Privacidad.
+Debe ser mayor de 18 años.
+1. OPERADOR, ANONIMATO Y NATURALEZA DEL SERVICIO
+1.1. Operador. El Sitio es operado bajo la marca Kinora por una persona natural domiciliada en Colombia que ha optado por no publicar su nombre ni su número de identificación (en adelante, el "Operador" o "Kinora"). Correo de contacto: contact@kinora.com.co. La identificación por marca, dominio y correo es suficiente para todos los efectos de estos Términos, sin perjuicio de revelar la identidad cuando lo exija una autoridad, un proceso o la defensa de sus derechos (Política de Privacidad, sección 1).
+
+1.2. Naturaleza. Kinora es una plataforma informativa y de entretenimiento que permite consultar metadatos de obras audiovisuales obtenidos de terceros y ofrece una interfaz desde la cual el Usuario puede acceder a reproducciones provistas por terceros cuando existen fuentes técnicas disponibles.
+
+1.3. Kinora no es un servicio de streaming. No aloja, no almacena y no distribuye desde sus propios servidores archivos de video o audio. No es productor, distribuidor, licenciatario ni titular de derechos de autor o conexos sobre las obras, ni se presenta como tal. La presencia de una obra en el catálogo no implica que Kinora tenga licencias sobre ella.
+
+1.4. Actividad instrumental. La actividad de Kinora es predominantemente instrumental: indexa, enlaza, incrusta y, cuando corresponde, actúa como intermediario técnico (por ejemplo, reenviando o proxeando flujos para compatibilidad y privacidad). Kinora se apoya en la naturaleza de enlace de su actividad y en su falta de control editorial sobre el contenido alojado por terceros.
+
+1.5. Catálogo. La información de catálogo (sinopsis, pósters, calificaciones, reparto y datos afines) proviene de proveedores externos. Kinora no garantiza su exactitud, actualización ni integridad. Las calificaciones suelen ser agregados de votos de usuarios de terceros, no críticas oficiales.
+
+1.6. Independencia. Kinora no está afiliada, patrocinada ni certificada por los proveedores de metadatos, de video, de publicidad o de plataformas de tráilers, salvo mención expresa.
+
+2. ACEPTACIÓN, EDAD Y CAPACIDAD
+2.1. El acceso, la navegación o el uso implican la aceptación de estos Términos. La aceptación es independiente de las autorizaciones sobre datos y cookies, regidas por la Política de Privacidad y el aviso de cookies. Si no está de acuerdo, debe abstenerse de usar el Servicio.
+
+2.2. El Servicio está dirigido a mayores de dieciocho (18) años. Si un representante legal permite el uso por un menor, es su responsabilidad supervisarlo, considerar que hay obras con temáticas, lenguaje o imágenes no aptas para menores, y velar por el cumplimiento de estos Términos.
+
+2.3. Quien actúe por una persona jurídica declara tener facultades suficientes para obligarla.
+
+3. DESCRIPCIÓN DEL SERVICIO Y ALCANCE
+3.1. El Servicio puede incluir, sin carácter exhaustivo:
+
+a) búsqueda y consulta de títulos y metadatos;
+b) fichas técnicas e información asociada;
+c) acceso a reproducciones de terceros cuando existan fuentes;
+d) gestión de subtítulos mediante proveedores externos;
+e) funciones de lista, favoritos y preferencias, guardadas en el almacenamiento local del navegador;
+f) espacios publicitarios de terceros.
+
+3.2. Sin cuentas. El Sitio puede usarse sin registro. Si en el futuro se habilitan cuentas, se publicarán las condiciones y se informará qué datos se recolectan antes de su uso.
+
+3.3. Listas en su dispositivo. Las listas y preferencias se guardan localmente. Consecuencias que el Usuario acepta: no hay respaldo en servidor, no hay sincronización entre dispositivos y la lista se pierde si borra los datos del sitio, cambia de navegador o de dispositivo. Kinora no es responsable de esa pérdida.
+
+3.4. Cambios en el Servicio. Kinora podrá modificar, suspender, limitar o discontinuar total o parcialmente el Servicio, cualquier función, proveedor, catálogo o interfaz, temporal o definitivamente, con o sin aviso previo, por razones técnicas, legales, de seguridad, operativas o de cualquier otra índole legítima. En particular, las fuentes de reproducción pueden agregarse, rotarse o eliminarse sin que ello genere derecho a un resultado concreto.
+
+3.5. Gratuidad. El acceso es gratuito, sin perjuicio de la publicidad y de los costos de conectividad a cargo del Usuario. Si se introducen funciones de pago, se publicarán previamente sus condiciones (precio, medios de pago, duración, cancelación y derechos del consumidor aplicables).
+
+3.6. Compatibilidad. El Servicio está pensado para navegadores modernos. La reproducción puede depender de tecnologías del navegador y de los terceros, y puede no funcionar en equipos antiguos, con extensiones agresivas, con bloqueadores que interfieran o con conexiones limitadas.
+
+3.7. API y uso programático. Las rutas internas del Sitio pueden consultarse programáticamente de forma razonable, siempre con atribución y sin abuso, salvo indicación en contrario.
+
+4. USO PERMITIDO Y PROHIBICIONES
+4.1. El Usuario se compromete a usar el Sitio conforme a la ley, la moral, el orden público y estos Términos.
+
+4.2. Queda expresamente prohibido:
+
+a) usar el Servicio para fines ilícitos o para vulnerar derechos de propiedad intelectual, industrial, de imagen, honor o privacidad de terceros;
+b) eludir medidas técnicas de protección, control de acceso, firmas, tokens, límites de tasa o sistemas de seguridad;
+c) la ingeniería inversa, el scraping masivo no autorizado, la minería de datos automatizada abusiva o la sobrecarga deliberada de la infraestructura;
+d) introducir malware, scripts maliciosos o código que dañe o interfiera con el Sitio o con equipos de terceros;
+e) suplantar identidades, falsear metadatos de red o manipular encabezados con fines fraudulentos;
+f) comercializar, revender o explotar el Servicio o sus contenidos sin autorización;
+g) usar el Sitio de modo que genere responsabilidad civil, penal o administrativa para Kinora o terceros;
+h) extraer, republicar o reutilizar de forma sistemática bases, subtítulos, metadatos o interfaces más allá del uso personal y legítimo;
+i) descargar, grabar, copiar, redistribuir o comunicar públicamente las obras accesibles, salvo que la ley o el titular lo permitan;
+j) presentar el Sitio como propio o sugerir una afiliación inexistente;
+k) incrustar el Sitio en otro sitio mediante marcos, de modo que se oculte o desnaturalice su origen, salvo autorización;
+l) retirar, ocultar o alterar avisos de propiedad o atribuciones.
+
+4.3. El incumplimiento podrá dar lugar a suspensión inmediata del acceso, bloqueo de direcciones IP o dispositivos, y a las acciones legales pertinentes.
+
+5. CONTENIDOS DE TERCEROS, REPRODUCCIÓN Y FUENTES
+5.1. El Sitio puede mostrar, incrustar, enlazar o proxear contenidos, reproductores, archivos, subtítulos, anuncios o servicios de terceros ("Contenidos de Terceros").
+
+5.2. Kinora no controla los Contenidos de Terceros ni a quienes los alojan, y no garantiza su legalidad, disponibilidad, calidad, sincronización, idioma, seguridad ni permanencia. Pueden dejar de estar disponibles, cambiar de origen o presentar errores sin que ello obligue a Kinora a garantizar un resultado concreto.
+
+5.3. La existencia de una ficha no implica la existencia de una fuente operativa ni lícita en todo momento o país.
+
+5.4. Los terceros pueden aplicar sus propios términos y políticas, usar cookies, mostrar anuncios, abrir ventanas emergentes o redirigir, y recibir datos técnicos de su dispositivo. El Usuario debe actuar con cautela y no instalar software ni descargar archivos que le ofrezcan ventanas emergentes o redirecciones, pudiendo apoyarse en herramientas de seguridad del navegador.
+
+5.5. Proxy y privacidad. Cuando la reproducción se sirve a través de la infraestructura de Kinora, el tercero de origen puede no ver directamente su IP ni su identificador real de navegador. Esto es una característica de diseño y no una garantía absoluta, pues depende del proveedor y del modo de carga.
+
+5.6. Geobloqueo. Algunas fuentes están limitadas por país o región. La disponibilidad puede variar por geolocalización aproximada derivada de la IP.
+
+5.7. Responsabilidad del Usuario. El Usuario es el único responsable de verificar que su acceso y uso cumplan la legislación aplicable en su jurisdicción, incluidas normas de derechos de autor, comunicación pública, copia privada y restricciones territoriales.
+
+6. DERECHOS DE AUTOR: NOTIFICACIÓN Y RETIRADA
+6.1. Kinora respeta los derechos de propiedad intelectual, no autoriza el uso del Sitio para infringirlos y atiende las notificaciones de titulares. Si usted es titular o está autorizado y considera que algún material accesible le afecta, escriba a contact@kinora.com.co con el asunto "Kinora – Derechos de autor".
+
+6.2. La notificación debe incluir:
+
+a) nombre, cargo, dirección, teléfono y correo del notificante, y la identificación de quien representa, si actúa por otro;
+b) identificación de la obra protegida;
+c) URL exacta o localización precisa del material cuestionado;
+d) declaración de buena fe sobre la falta de autorización;
+e) declaración de exactitud y de legitimación;
+f) firma física o electrónica.
+
+6.3. Kinora revisará las notificaciones completas y, en principio dentro de los cinco (5) días hábiles siguientes, retirará, desindexará o deshabilitará el acceso al material cuestionado, sin que ello implique admisión de responsabilidad. Podrá pedir información adicional si la notificación es incompleta.
+
+6.4. Kinora no aloja las obras: la eliminación definitiva del archivo solo puede hacerla quien lo aloja. Cuando sea posible, Kinora trasladará el reclamo al proveedor involucrado, y el titular podrá dirigirse también directamente a él.
+
+6.5. Contranotificación. Quien considere que el retiro fue erróneo puede pedir revisión al mismo correo, asunto "Kinora – Revisión", identificando el material y explicando los motivos. Kinora podrá restablecer el material si la notificación resulta infundada.
+
+6.6. Notificaciones falsas o engañosas a sabiendas pueden acarrear responsabilidad.
+
+6.7. Kinora podrá suspender la integración con fuentes respecto de las cuales reciba notificaciones fundadas reiteradas.
+
+7. PROPIEDAD INTELECTUAL DEL SITIO Y ATRIBUCIONES
+7.1. La marca Kinora, el logotipo, el diseño de interfaz, el código propio, los textos originales, la compilación y demás elementos creados por el Operador están protegidos por las leyes de propiedad intelectual e industrial aplicables.
+
+7.2. Queda prohibida su reproducción, distribución, comunicación pública o transformación sin autorización previa y escrita, salvo lo permitido por la ley (citas legítimas, usos autorizados).
+
+7.3. Los derechos sobre obras audiovisuales, marcas de estudios, pósters, imágenes y metadatos de terceros pertenecen a sus titulares. Las marcas de terceros se mencionan con fines de identificación.
+
+7.4. Este producto utiliza la API de TMDB, pero no está respaldado ni certificado por TMDB. (This product uses the TMDB API but is not endorsed or certified by TMDB.) Los datos e imágenes de TMDB se muestran conforme a sus términos de uso. Ver Anexo.
+
+7.5. El Usuario no adquiere derecho alguno sobre el software, el diseño ni la marca por el solo uso del Sitio.
+
+8. PUBLICIDAD Y SERVICIOS DE TERCEROS
+8.1. El Sitio puede mostrar anuncios de redes publicitarias de terceros. Estos pueden usar cookies, identificadores o tecnologías similares conforme a sus políticas. La gestión del consentimiento se explica en la Política de Privacidad (sección 8).
+
+8.2. Kinora no responde por el contenido de los anuncios ni por las transacciones o relaciones que el Usuario establezca con anunciantes.
+
+8.3. La publicidad sostiene la gratuidad del Servicio. El uso de bloqueadores es compatible, aunque puede afectar la medición.
+
+8.4. La integración de analítica, subtítulos, reproductores u otros servicios externos se rige también por los términos y políticas de esos proveedores.
+
+9. SUBTÍTULOS, ETIQUETAS DE AUDIO E IDIOMA
+9.1. Los subtítulos, cuando existan, provienen de terceros o de procesos automáticos. Pueden estar desincronizados, incompletos, mal traducidos o ausentes. Kinora no garantiza su calidad.
+
+9.2. Las etiquetas de "subtitulado" o "doblaje" son aproximadas y derivadas de heurísticas, no de una verificación por título. Una obra etiquetada como doblada puede reproducirse subtitulada y viceversa, según la fuente disponible en el momento.
+
+9.3. El idioma de la ficha y el idioma del audio pueden diferir. Las preferencias de idioma se aplican en la medida en que las fuentes lo permitan.
+
+9.4. Kinora no garantiza la existencia de una versión concreta (idioma, doblaje, subtítulos, calidad o resolución).
+
+10. CONTENIDO PARA ADULTOS Y CLASIFICACIONES
+10.1. El catálogo puede incluir obras con temáticas, violencia, lenguaje o imágenes para público adulto. Las clasificaciones o advertencias provienen de terceros, son informativas y no están garantizadas. No hay verificación efectiva de edad.
+
+10.2. Corresponde al Usuario, y a los representantes legales en el caso de menores, decidir qué contenido es apropiado.
+
+11. DISPONIBILIDAD, MANTENIMIENTO Y LIMITACIÓN TÉCNICA
+11.1. El Servicio se ofrece "tal cual" ("as is") y "según disponibilidad" ("as available"), sin garantía de resultado.
+
+11.2. Kinora no garantiza que el Servicio sea ininterrumpido, libre de errores, completamente seguro ni compatible con todos los dispositivos, navegadores o conexiones.
+
+11.3. Pueden existir mantenimientos, fallos de proveedores, bloqueos de red, restricciones geográficas o límites de capacidad que afecten la experiencia.
+
+11.4. Kinora podrá aplicar límites de tasa, cachés y mecanismos antiabuso, y podrá suspender temporalmente el acceso a usuarios o redes que comprometan la estabilidad.
+
+12. EXENCIÓN Y LIMITACIÓN DE RESPONSABILIDAD
+12.1. En la máxima medida permitida por la ley, Kinora, su Operador, colaboradores y proveedores no serán responsables por:
+
+a) daños indirectos, lucro cesante, pérdida de datos, daño emergente indirecto o daño reputacional;
+b) los Contenidos de Terceros, su calidad, legalidad o disponibilidad, incluidos anuncios, ventanas emergentes, redirecciones o software;
+c) decisiones del Usuario basadas en información del catálogo;
+d) interrupciones, pérdida de listas o preferencias guardadas localmente, o fallos de reproducción;
+e) ataques de terceros, fuerza mayor o hechos fuera de control razonable;
+f) el uso del Sitio en violación de la ley o de estos Términos;
+g) la exactitud de etiquetas de audio, subtítulos, clasificaciones o metadatos;
+h) el contenido alojado por terceros y la legalidad de las fuentes en cada país.
+
+12.2. Cuando la ley no permita la exclusión total, la responsabilidad se limitará, en la máxima medida permitida, a las sumas pagadas directamente a Kinora por el Servicio en los doce (12) meses anteriores al hecho. Siendo el Servicio gratuito, la responsabilidad se limitará al mínimo imperativo legal.
+
+12.3. Nada excluye ni limita la responsabilidad por dolo o culpa grave, ni las garantías o derechos irrenunciables en favor de consumidores cuando resulten aplicables.
+
+12.4. Salvo plazo legal distinto, cualquier reclamación deberá presentarse dentro de los dos (2) años siguientes al hecho que la origine.
+
+13. INDEMNIDAD
+El Usuario mantendrá indemne a Kinora frente a reclamaciones, sanciones, costas y daños derivados de: (i) su uso indebido del Servicio; (ii) su violación de estos Términos; (iii) su vulneración de derechos de terceros; (iv) su uso de Contenidos de Terceros en contravención de la ley; o (v) contenidos o conductas que le sean atribuibles. En la medida permitida por la ley.
+
+14. PROTECCIÓN DE DATOS Y COOKIES
+El tratamiento de datos y el uso de cookies se rigen por la Política de Privacidad, que forma parte integrante de la relación con el Usuario. Allí se identifica al Responsable, se explican las finalidades, los derechos del Titular, el inventario de cookies y la forma de ejercerlos.
+
+15. MODIFICACIONES
+15.1. Kinora podrá actualizar estos Términos. La versión vigente se publicará con fecha y número de versión; los cambios sustanciales se anunciarán con aviso visible.
+
+15.2. El uso continuado tras la publicación constituye aceptación, salvo que la ley exija consentimiento específico. Los cambios sobre datos personales se rigen por la Política de Privacidad.
+
+16. SUSPENSIÓN Y TERMINACIÓN
+Kinora podrá denegar, restringir o terminar el acceso de forma inmediata, sin perjuicio de otras acciones, cuando exista incumplimiento, riesgo legal o técnico, o requerimiento de autoridad. Las disposiciones que por su naturaleza deban sobrevivir (propiedad intelectual, limitación de responsabilidad, indemnidad y legislación aplicable) continuarán vigentes.
+
+17. LEGISLACIÓN APLICABLE Y JURISDICCIÓN
+17.1. Estos Términos se rigen por las leyes de la República de Colombia, sin perjuicio de las normas imperativas de protección al consumidor aplicables al Usuario según su residencia.
+
+17.2. Para controversias, las partes se someten a los jueces y tribunales competentes de Colombia conforme a las reglas de competencia. Cuando la normativa de consumo otorgue al Usuario un fuero especial irrenunciable, prevalecerá ese fuero.
+
+17.3. Para asuntos de protección al consumidor y de datos personales, el Usuario podrá acudir a la Superintendencia de Industria y Comercio en los términos legales.
+
+18. CONTACTO
+Operador: Kinora (identificación por marca, dominio y correo)
+Sitio: https://kinora.com.co
+Correo: contact@kinora.com.co
+
+Asuntos sugeridos: "Kinora – Legal", "Kinora – Derechos de autor", "Kinora – Privacidad".
+
+Kinora podrá comunicarse mediante avisos en el Sitio o, si el Usuario escribió, al correo desde el cual lo hizo.
+
+19. DISPOSICIONES GENERALES
+19.1. Si una cláusula se declara nula o inaplicable, el resto permanece vigente.
+19.2. La falta de ejercicio de un derecho no implica renuncia.
+19.3. Estos Términos son el acuerdo completo sobre el uso del Sitio y sustituyen entendimientos previos, sin perjuicio de la Política de Privacidad y de avisos específicos.
+19.4. Los encabezados son de conveniencia y no afectan la interpretación.
+19.5. Redactados en español; si hay traducciones, prevalece la versión en español.
+19.6. Ninguna parte responde por incumplimiento debido a fuerza mayor o caso fortuito.
+19.7. Kinora podrá ceder estos Términos a un sucesor en la operación del Sitio. El Usuario no podrá cederlos sin autorización escrita.
+19.8. El historial de versiones se publica en la Política de Privacidad (Anexo IV) y en esta misma sección cuando cambie.
+
+ANEXO — ATRIBUCIONES
+Metadatos e imágenes: This product uses the TMDB API but is not endorsed or certified by TMDB. Los pósters, sinopsis y datos pertenecen a sus titulares.
+Marcas y estudios: los logotipos y nombres de estudios, plataformas y obras se usan con fines de identificación.
+Terceros de video, subtítulos, publicidad y tráilers: se acreditan cuando su integración lo exige, en el pie de página del Sitio.
+Fin del documento.

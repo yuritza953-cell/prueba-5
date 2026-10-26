@@ -1,0 +1,1 @@
+"""VidSrc (English) stream source."""

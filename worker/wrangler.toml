@@ -1,0 +1,31 @@
+name = "kinora"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# Dominio: lo configuras tú más adelante.
+# [[routes]]
+# pattern = "hls.tudominio.com/*"
+# zone_name = "tudominio.com"
+
+[vars]
+STREAM_SIGN_KEY = "d2be9cb540c95f5e59a0f066bf6e4d90a3d51838a5a45488b7e5923184589558"
+
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+redact_query_string = true
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
+persist = true
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 1
+persist = true
+
+[observability.issues]
+enabled = true

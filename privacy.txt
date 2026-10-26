@@ -1,0 +1,314 @@
+1. RESPONSABLE DEL TRATAMIENTO Y MODELO DE ANONIMATO
+Responsable: Kinora (en adelante, "Kinora", el "Responsable" o el "Operador").
+
+Identificación del Responsable. El Sitio es operado bajo la marca Kinora por una persona natural que ha optado por un criterio de anonimato deliberado: no publica su nombre, su número de identificación, su teléfono ni su dirección física. A todos los efectos de esta Política y de la Ley 1581 de 2012, el Responsable queda suficientemente individualizado por:
+
+Marca: Kinora
+Dominio principal: https://kinora.com.co
+Correo de contacto y canal oficial: contact@kinora.com.co
+País de operación y jurisdicción principal: Colombia
+Alcance del anonimato. La omisión del nombre y del número de identificación no afecta la validez del consentimiento, ni la titularidad de derechos y obligaciones, ni el ejercicio de los derechos de los Titulares, que se atienden por el correo oficial. Kinora podrá revelar su identidad, total o parcialmente, cuando:
+
+a) lo requiera una autoridad competente, judicial o administrativa, incluida la Superintendencia de Industria y Comercio (SIC);
+b) sea necesario para la defensa de sus derechos en una controversia;
+c) lo exija una norma aplicable (por ejemplo, información al consumidor o al prestador de servicios en comercio electrónico);
+d) resulte conveniente para acreditar la prueba de una autorización o la atención de un reclamo.
+
+Identificadores que Kinora no controla. El registro del dominio ante el registrador correspondiente puede exponer datos del titular según la política de privacidad del registrador (por ejemplo, datos de WHOIS). Kinora no controla esa información y no la considera parte de esta Política.
+
+Cambios en la estructura del Operador. Si en el futuro el Operador se constituye como sociedad, obtiene NIT, habilita pagos o designa un representante, esta sección se actualizará indicando la denominación y el NIT, sin que ello afecte los tratamientos anteriores.
+
+Responsable de atender peticiones. El propio Operador atiende las peticiones, consultas y reclamos, a través de contact@kinora.com.co con el asunto "Kinora – Privacidad". No existe atención telefónica ni presencial, por decisión de anonimato y minimización.
+
+2. ÁMBITO DE APLICACIÓN Y ALCANCE TERRITORIAL
+2.1. Esta Política aplica a:
+
+a) visitantes del Sitio;
+b) usuarios que interactúan con buscador, fichas, reproductores, subtítulos, listas o preferencias;
+c) datos tratados mediante cookies, almacenamiento local, registros de servidor y servicios de terceros integrados (publicidad, analítica, metadatos, subtítulos, reproductores, imágenes).
+
+2.2. No regula los sitios, reproductores o servicios de terceros enlazados o incrustados, que se rigen por sus propias políticas (sección 9).
+
+2.3. El Sitio está disponible en español y orientado principalmente a usuarios de Colombia y Latinoamérica, sin excluir a usuarios de otras regiones. Sección 11 recoge los derechos aplicables en otras jurisdicciones.
+
+3. DEFINICIONES
+Anonimización: proceso que impide asociar un dato con una persona determinada o determinable.
+Autorización: consentimiento previo, expreso e informado del Titular.
+Aviso de cookies: mecanismo de primera capa que informa y recoge la elección sobre cookies no esenciales.
+CMP (Consent Management Platform): plataforma de gestión de consentimiento que registra y comunica las elecciones del usuario a los terceros que las requieren.
+Cookie: archivo de texto que el navegador almacena y devuelve al servidor que lo emitió.
+Dato personal: información vinculada o asociable a una persona natural determinada o determinable (una IP o un identificador de dispositivo pueden serlo).
+Encargado: quien trata datos por cuenta del Responsable.
+GPC (Global Privacy Control): señal de preferencia de privacidad que el navegador puede enviar para comunicar una oposición a la venta o compartición de datos.
+Píxel / baliza web: recurso mínimo invisible que permite registrar una visita.
+Pseudonimización: tratamiento que impide atribuir datos a una persona sin información adicional.
+Responsable: quien decide sobre la base de datos y el tratamiento (Kinora, sección 1).
+TCF: marco de transparencia y consentimiento del sector publicitario digital.
+Titular: persona natural cuyos datos son tratados.
+Tratamiento: cualquier operación sobre datos personales.
+Transferencia / transmisión: envío a otro Responsable / comunicación a un Encargado.
+4. PRINCIPIOS
+Kinora orienta el tratamiento, en lo razonable y aplicable, por: legalidad y finalidad legítima informada; libertad y consentimiento cuando la ley lo exija; transparencia; veracidad y calidad en lo que dependa del Responsable; seguridad y confidencialidad; acceso y circulación restringida; y minimización, esto es, tratar solo lo necesario. Kinora aplica además un principio rector propio: cuanto menos dato identificable, mejor, lo que explica el anonimato del Operador y la preferencia por almacenamiento en el dispositivo del usuario.
+
+5. DATOS QUE PODEMOS TRATAR
+5.1. Datos técnicos y de navegación
+
+Dirección IP y aproximación de ubicación derivada de la IP (país o ciudad aproximados);
+Navegador, sistema operativo, tipo de dispositivo, idioma y resolución;
+Páginas y rutas visitadas, fecha y hora, URL de referencia;
+Identificadores de sesión o dispositivo;
+Registros de servidor (logs) y códigos de error.
+5.2. Datos de interacción con el Servicio
+
+Consultas de búsqueda;
+Títulos o identificadores de catálogo consultados o reproducidos;
+Preferencias de idioma, audio o subtítulos, y filtros usados;
+Eventos técnicos del reproductor (inicio, error, cambio de calidad), de forma agregada o técnica;
+Selección de proveedor de reproducción, cuando el usuario la elige.
+5.3. Datos almacenados en su dispositivo
+
+Listas, favoritos y preferencias guardadas en almacenamiento local del navegador. No se envían a nuestros servidores salvo que una función futura lo indique expresamente;
+Caché de subtítulos o de recursos reutilizables;
+Registro local de su elección sobre cookies (categorías aceptadas, fecha y versión del aviso).
+5.4. Datos de comunicación
+
+Nombre o seudónimo, correo y contenido del mensaje cuando usted escribe al correo oficial;
+Datos aportados en notificaciones de derechos de autor, solicitudes de privacidad o reclamos.
+5.5. Datos de publicidad y terceros
+
+Identificadores publicitarios, cookies y datos de uso tratados por redes publicitarias y por sus socios, conforme a sus propias políticas (sección 9 y Anexo II).
+5.6. Datos que no solicitamos
+
+Kinora no solicita deliberadamente datos sensibles (salud, biometría, convicciones, vida sexual, origen étnico, entre otros). Usted no está obligado a suministrarlos. Los títulos que consulta pueden reflejar sus intereses, pero no se usan para inferir categorías sensibles salvo de forma indiciaria.
+
+5.7. Datos que no tratamos (por ahora)
+
+No hay cuentas, contraseñas, perfiles ni autenticación;
+No hay historial de visualización centralizado en servidor;
+No hay datos de pago (hasta que existan funciones de pago).
+6. FINALIDADES DEL TRATAMIENTO
+Los datos se tratan para:
+
+a) prestar, mantener y mejorar el Servicio y sus funciones;
+b) permitir búsqueda, navegación, reproducción y subtítulos, y recordar preferencias;
+c) garantizar seguridad, prevenir fraude, abuso, scraping agresivo, ataques y uso indebido;
+d) elaborar estadísticas agregadas y diagnósticos técnicos;
+e) responder solicitudes, consultas, reclamos y requerimientos legales, incluidas notificaciones de derechos de autor;
+f) mostrar publicidad, personalizada solo cuando corresponda y con su autorización;
+g) cumplir obligaciones legales y defender derechos ante controversias;
+h) personalizar aspectos básicos de interfaz (idioma, última interacción).
+
+No se usarán sus datos para finalidades distintas sin informarlo y, cuando la ley lo exija, sin nueva autorización.
+
+7. BASES JURÍDICAS, AUTORIZACIÓN Y REVOCATORIA
+7.1. Colombia. El tratamiento requiere autorización previa, expresa e informada, salvo excepciones legales. Puede otorgarse por escrito, de forma oral o mediante conductas inequívocas concluyentes (por ejemplo, aceptar o configurar el aviso de cookies, o escribir al correo). El silencio no se presume autorización.
+
+7.2. Datos técnicos esenciales. El tratamiento de los datos estrictamente necesarios para entregar el Sitio y mantenerlo seguro se apoya en la solicitud de acceso del Usuario, en el interés legítimo de Kinora en la seguridad y prevención de abusos, y en el cumplimiento de obligaciones legales.
+
+7.3. Cookies no esenciales y publicidad personalizada. Solo con autorización previa, recogida en el aviso de cookies. Puede aceptar, rechazar o configurar, y cambiar su elección en cualquier momento (sección 8.6).
+
+7.4. Prueba de la autorización. Kinora conserva evidencia de las autorizaciones: registro local de la elección de cookies (categorías, fecha, versión) y, cuando aplique, el correo remitido.
+
+7.5. Revocatoria. Puede revocar la autorización y solicitar la supresión, salvo deber legal o contractual de conservación (sección 10 y 13).
+
+8. COOKIES, ALMACENAMIENTO LOCAL Y TECNOLOGÍAS SIMILARES
+8.1. Alcance. El Sitio utiliza cookies propias y de terceros, almacenamiento local (localStorage / sessionStorage), píxeles y tecnologías equivalentes. Esta sección aplica también a esas tecnologías aunque no sean cookies en sentido estricto.
+
+8.2. Regla general de consentimiento. Las tecnologías no esenciales no se activan antes de su consentimiento, donde la ley lo exija. No se usan casillas premarcadas ni "cookie walls". El rechazo debe ser tan fácil y visible como la aceptación.
+
+8.3. Categorías.
+
+a) Estrictamente necesarias — funcionamiento básico, seguridad, equilibrio de carga y memoria de su elección. No requieren consentimiento.
+Proveedor: Kinora y su proveedor de red/seguridad. Duración: la de cada identificador (Anexo I).
+
+b) Preferencias y funcionalidad — idioma, filtros, listas, caché de subtítulos. Se consideran necesarias para una función que usted solicita. No requieren consentimiento, aunque se declaran con transparencia.
+Proveedor: Kinora (almacenamiento local del navegador).
+
+c) Analítica y medición — estadísticas de uso, agregadas y, cuando sea posible, sin identificadores persistentes. Requieren consentimiento donde la ley lo exija.
+
+d) Publicidad — segmentación, medición y limitación de frecuencia, servidas por redes de terceros (por ejemplo, Google AdSense y sus socios). Requieren consentimiento para personalización y para cookies no esenciales.
+
+e) Contenido de terceros — imágenes de catálogo, tráilers y, cuando se usen, reproductores o subtítulos incrustados. Pueden establecer sus propias cookies cuando su navegador se conecta directo a ellos.
+
+8.4. Distinción importante según el modo de carga. Kinora describe honestamente dos supuestos, porque el efecto sobre su privacidad es distinto:
+
+Recursos servidos a través de nuestro proxy (por ejemplo, flujos de video resueltos y proxeados por nuestro backend o por nuestro Worker): el tercero de origen suele ver la IP de nuestro servidor y no la suya, y las cookies de ese tercero suelen gestionarse del lado del servidor, de modo que no siempre se depositan cookies en su navegador. Además, el proxy puede enviar un identificador de navegador normalizado en lugar del suyo real.
+Recursos cargados directamente por su navegador (por ejemplo, imágenes de catálogo, tráilers de YouTube o anuncios): su navegador se conecta al tercero, que recibe su IP, el referente y datos técnicos, y puede establecer cookies propias.
+8.5. Aviso y gestión del consentimiento. En la primera visita se muestra un aviso de cookies de primera capa con acciones de Aceptar todas, Rechazar todas y Configurar, con control granular por categoría. Se registra la elección (categorías, fecha y hora, versión del aviso, identificador local), de modo que sea posible probarla. La elección se renueva cuando cambia materialmente el inventario y, por buena práctica, al menos cada 12 meses.
+
+8.6. Revocación y cambio de elección. En cualquier momento puede reabrir el panel mediante el enlace permanente "Configuración de cookies" en el pie de página. También puede borrar cookies y datos del sitio desde su navegador.
+
+8.7. Consecuencias de rechazar. El Sitio sigue funcionando. Sin consentimiento: no se activan analítica ni publicidad personalizada (puede mostrarse publicidad no personalizada); las listas y preferencias siguen funcionando porque viven en su dispositivo; y algunos terceros de contenido podrían seguir estableciendo cookies si su contenido se carga directo.
+
+8.8. Señales de privacidad. Kinora procura respetar la señal Global Privacy Control (GPC) como oposición a la venta o compartición cuando la ley la reconozca, y como señal de rechazo de cookies no esenciales en la medida en que su implementación lo permita. La señal "Do Not Track" no es uniforme entre navegadores y no se garantiza su interpretación.
+
+8.9. Publicidad de Google y Consent Mode. Cuando se sirve publicidad de Google, Kinora puede implementar el modo de consentimiento de Google (señales de almacenamiento de anuncios, datos de usuario, personalización y analítica) para que las etiquetas se comporten conforme a su elección. Para usuarios del Espacio Económico Europeo, Reino Unido y Suiza, Google exige una plataforma de consentimiento certificada e integrada con el marco del sector publicitario; si no está disponible, Google puede limitar la publicidad personalizada. Sección 9.3 y 11.1.
+
+8.10. Desactivación desde el navegador. Puede bloquear o eliminar cookies y borrar datos del sitio. Puede gestionar preferencias de publicidad personalizada en https://adssettings.google.com y en portales de autorregulación como https://www.aboutads.info/choices y https://www.youronlinechoices.eu.
+
+8.11. Anexo I. El inventario concreto de cookies y claves de almacenamiento, proveedor, finalidad, duración y si requieren consentimiento figura en el Anexo I, que se mantiene actualizado.
+
+9. TERCEROS, ENCARGADOS, TRANSFERENCIAS Y EL EFECTO DEL PROXY
+9.1. Categorías de terceros que intervienen: alojamiento y servidores en la nube; red de distribución, proxy y seguridad; metadatos e imágenes de catálogo; subtítulos; reproductores o flujos de video de origen; publicidad y sus socios; y, cuando aplique, analítica y correo electrónico.
+
+9.2. Conexiones directas desde su navegador. Para mostrar pósters, tráilers, anuncios o ciertos reproductores, su navegador puede conectarse directamente a terceros, que reciben su IP, tipo de navegador, referente y otros datos técnicos y pueden establecer sus propias cookies. Kinora no controla ese tratamiento.
+
+9.3. Publicidad de Google y otros terceros. Google y otros terceros pueden colocar y leer cookies, usar balizas web o su IP para recopilar información derivada de la publicidad mostrada. Cómo usa Google los datos de sus socios: https://www.google.com/policies/privacy/partners/
+
+9.4. Roles. Algunos proveedores actúan como Encargados (tratan datos por cuenta de Kinora y bajo contrato o condiciones equivalentes: por ejemplo, alojamiento y proxy). Otros actúan como Responsables independientes de sus propios tratamientos (por ejemplo, Google, el proveedor de metadatos y los proveedores de video) cuando recolectan datos directamente desde su navegador o para sus propias finalidades.
+
+9.5. Efecto del proxy (ventaja de privacidad). Cuando un recurso se sirve por nuestro proxy, el tercero de origen no recibe directamente su IP ni su identificador de navegador real, sino los de la infraestructura de Kinora. Esto reduce la huella y la correlación entre sitios, y es una característica deliberada del diseño del Servicio.
+
+9.6. Transferencias y transmisiones internacionales. Los servidores y proveedores pueden estar fuera de Colombia (por ejemplo, Estados Unidos o la Unión Europea). Las transferencias internacionales se realizan a países con nivel adecuado reconocido o con base en las excepciones legales aplicables, incluida su autorización expresa e inequívoca cuando corresponda, recogida en el aviso de cookies. Las transmisiones a Encargados se rigen por condiciones que exigen seguridad y confidencialidad.
+
+9.7. Principales proveedores. Lista de referencia en el Anexo II, que se mantiene actualizada. Puede variar sin previo aviso por razones técnicas; los cambios relevantes se reflejan en el Anexo.
+
+9.8. Políticas de terceros. Se recomienda revisar las políticas de Google, del proveedor de metadatos y de los proveedores de subtítulos y video. Los enlaces externos no están regulados por esta Política.
+
+9.9. Sin venta de bases. Kinora no cede comercialmente bases de contacto. No obstante, la publicidad de terceros puede constituir "venta" o "compartición" en el sentido de algunas leyes estatales de Estados Unidos (sección 11.2).
+
+10. DERECHOS DE LOS TITULARES (COLOMBIA)
+10.1. Derechos. Conforme a la Ley 1581 de 2012, usted puede:
+
+a) conocer, actualizar y rectificar sus datos;
+b) solicitar prueba de la autorización otorgada;
+c) ser informado, previa solicitud, del uso dado a sus datos;
+d) presentar quejas ante la SIC por infracciones, agotado el trámite de consulta o reclamo ante Kinora;
+e) revocar la autorización y/o solicitar la supresión, salvo deber legal o contractual de conservarlos;
+f) acceder gratuitamente a sus datos objeto de tratamiento, al menos una vez cada mes calendario y cada vez que existan modificaciones sustanciales de esta Política.
+
+10.2. Quién puede ejercerlos. El Titular acreditando identidad, sus causahabientes, su representante o apoderado, o quien actúe por estipulación a favor de otro. Los derechos de niños, niñas y adolescentes se ejercen por quienes estén facultados para representarlos.
+
+10.3. Cómo ejercerlos. Escriba a contact@kinora.com.co (asunto "Kinora – Privacidad") indicando:
+
+nombre o seudónimo y medio de contacto;
+descripción de los hechos o de la solicitud;
+información que permita verificar su identidad cuando sea necesario;
+datos que faciliten localizar el tratamiento (fecha aproximada, página visitada, IP si la conoce).
+El ejercicio no tiene costo.
+
+10.4. Limitación por ausencia de cuentas. Como no hay registro, Kinora localiza los datos por referencias técnicas (fecha, IP, correo). Es posible que parte del tratamiento no sea atribuible a usted de forma inequívoca; en tal caso se lo informaremos con claridad y motivación.
+
+10.5. Plazos.
+
+Consultas: máximo diez (10) días hábiles desde el recibo. Si no es posible, se informarán los motivos y la fecha de atención, que no superará cinco (5) días hábiles adicionales.
+Reclamos (corrección, actualización, supresión, revocatoria o presunto incumplimiento): si está incompleto, se requerirá dentro de los cinco (5) días siguientes; transcurridos dos (2) meses sin respuesta, se entenderá desistimiento. Completo el reclamo, se atenderá en máximo quince (15) días hábiles desde el día siguiente a su recibo. Si no es posible, se informarán motivos y nueva fecha, que no superará ocho (8) días hábiles adicionales. Mientras se tramita, se anotará "reclamo en trámite".
+10.6. Autoridad. Si no obtiene respuesta satisfactoria, puede acudir a la Superintendencia de Industria y Comercio, Delegatura para la Protección de Datos Personales: https://www.sic.gov.co
+
+11. USUARIOS EN OTRAS JURISDICCIONES
+11.1. Espacio Económico Europeo, Reino Unido y Suiza (RGPD / UK GDPR / LPD).
+
+a) Responsable: Kinora, según la sección 1.
+b) Bases jurídicas: consentimiento (cookies no esenciales, publicidad personalizada); interés legítimo (seguridad, prevención de abusos, mejora del Servicio); atención de solicitudes del interesado; cumplimiento de obligaciones legales.
+c) Derechos: acceso, rectificación, supresión, limitación, portabilidad, oposición —incluida la oposición a tratamientos basados en interés legítimo—, no ser objeto de decisiones automatizadas con efectos significativos y retirada del consentimiento en cualquier momento, sin afectar la licitud previa.
+d) Reclamación: puede acudir a la autoridad de control de su país (por ejemplo, la AEPD en España).
+e) Transferencias fuera de su país: se aplican garantías reconocidas (decisiones de adecuación o cláusulas contractuales tipo).
+f) Cookies: además del RGPD, se observa la normativa de privacidad en comunicaciones electrónicas; las cookies no esenciales se activan tras consentimiento previo.
+g) Representante en la Unión. Por estar el Responsable establecido fuera de la Unión y ofrecer el Servicio a usuarios de la Unión, puede designarse un representante en la Unión. Mientras no se designe formalmente, las solicitudes se atienden por el correo oficial, que actúa como punto de contacto.
+h) Edad: el Servicio está dirigido a mayores de 18 años; si un menor lo usa bajo responsabilidad de su representante, se aplica la sección 12.
+
+11.2. Estados Unidos (California y estados con leyes de privacidad).
+
+a) No se vende información personal por dinero. La publicidad de terceros puede constituir "venta" o "compartición" para publicidad conductual entre contextos según algunas leyes estatales.
+b) Puede excluirse mediante "Configuración de cookies", mediante señales de preferencia como GPC cuando su navegador la envíe y la ley la reconozca, o escribiendo al correo oficial.
+c) Según su estado, puede solicitar conocer, acceder, corregir o eliminar, obtener información sobre categorías y destinatarios, y limitar el uso de información personal sensible. No habrá discriminación por ejercer estos derechos.
+d) No se aplica verificación de identidad reforzada al no existir cuentas; se usa la referencia técnica disponible.
+
+11.3. América Latina. Aunque la base principal es la ley colombiana, Kinora atenderá solicitudes equivalentes de usuarios de otros países, en la medida aplicable: México (LFPDPPP), Brasil (LGPD), Argentina (Ley 25.326), Chile (Ley 19.628 y su reforma), Perú (Ley 29733), Ecuador (Ley Orgánica de Protección de Datos), Uruguay (Ley 18.331), Paraguay (Ley 6534) y demás normas concordantes. Anexo III.
+
+11.4. Otros países. Los usuarios de otras jurisdicciones dispondrán de los derechos equivalentes que su ley local reconozca, atendidos en la medida en que resulten aplicables.
+
+12. MENORES DE EDAD
+El Servicio está dirigido a mayores de dieciocho (18) años y no recopila de forma intencional datos de niños, niñas y adolescentes. En Colombia, el tratamiento de datos de menores está proscrito salvo los de naturaleza pública y los casos que cumplan los requisitos legales (interés superior, respeto de derechos fundamentales y autorización del representante). No se dirige publicidad personalizada a usuarios que se sepa son menores de 13 años.
+
+Si un representante legal considera que un menor aportó datos, o si Kinora detecta que los recibió, podrá revisarlos o suprimirlos a solicitud.
+
+13. CONSERVACIÓN Y VIGENCIA
+13.1. Solo se conservan datos durante el tiempo razonable y necesario para las finalidades y para cumplir obligaciones legales o contractuales; después se suprimen o anonimizan. Plazos de referencia:
+
+Registros técnicos del servidor (logs): hasta 90 días, con posibilidad de truncar la IP o anonimizarla;
+Correos y solicitudes (consultas, reclamos, privacidad): duración de la gestión y 2 años adicionales;
+Notificaciones de derechos de autor y su trámite: 5 años, para defensa de derechos;
+Datos en su dispositivo (almacenamiento local, caché): hasta que usted los borre o la aplicación los depure por espacio;
+Cookies y datos en poder de terceros: según cada proveedor.
+13.2. Las bases tendrán vigencia mientras subsistan las finalidades de la sección 6. Esta Política rige desde su fecha de entrada en vigencia.
+
+13.3. Kinora no está obligada a conservar datos que no resulten necesarios, y puede depurarlos anticipadamente.
+
+14. SEGURIDAD Y NOTIFICACIÓN DE INCIDENTES
+14.1. Medidas. Kinora aplica medidas técnicas, humanas y administrativas razonables: cifrado HTTPS en las comunicaciones con el Sitio, cabeceras de seguridad, control de acceso a la infraestructura, minimización de datos en servidor, restricción de registros innecesarios, límites de tasa y proxy para no exponer identificadores del usuario. Ningún sistema es invulnerable; el Usuario debe mantener actualizado su navegador y dispositivo.
+
+14.2. Incidentes. Si se presentan violaciones de seguridad que pongan en riesgo la información de los Titulares, Kinora lo informará a la SIC conforme a la ley y, cuando corresponda, a los afectados, con indicación de la naturaleza del incidente, los datos comprometidos, las medidas adoptadas y las recomendaciones.
+
+14.3. Rol del Usuario. Se recomienda no reutilizar contraseñas (aunque no haya cuentas), desconfiar de ventanas emergentes de reproductores y verificar la URL antes de instalar cualquier cosa que un tercero sugiera.
+
+15. PUBLICIDAD, PERFILADO Y DECISIONES AUTOMATIZADAS
+15.1. La publicidad puede basarse en intereses inferidos por terceros anunciantes a partir de su navegación, según las cookies autorizadas.
+
+15.2. Kinora no realiza, como regla general, decisiones automatizadas que produzcan efectos jurídicos significativos, más allá de la operativa técnica del Servicio y de la personalización básica de interfaz o de anuncios gestionados por terceros.
+
+15.3. La publicidad no personalizada puede mostrarse sin cookies no esenciales, según la configuración de los proveedores.
+
+16. CAMBIOS A ESTA POLÍTICA
+16.1. Kinora podrá actualizar esta Política por cambios legales, técnicos o del Servicio. La versión vigente se publicará con fecha y número de versión.
+
+16.2. Los cambios sustanciales relativos a la identificación del Responsable o a las finalidades se comunicarán con aviso visible en el Sitio antes de su implementación o, a más tardar, al implementarlos. Si cambian las finalidades, se solicitará nueva autorización.
+
+16.3. Respecto de los demás cambios, el uso continuado implica conocimiento de la nueva versión, sin perjuicio de los consentimientos específicos exigibles.
+
+16.4. El historial de versiones se publica en el Anexo IV.
+
+17. CONTACTO
+Correo: contact@kinora.com.co
+Asunto sugerido: "Kinora – Privacidad"
+Sitio: https://kinora.com.co
+Datos del Responsable: sección 1.
+
+18. TRANSPARENCIA ADICIONAL
+18.1. Kinora no vende listas de datos de contacto recolectadas en el Sitio.
+
+18.2. La publicidad de terceros puede implicar tratamiento de identificadores técnicos por esos terceros para mostrar y medir anuncios.
+
+18.3. El Usuario puede limitar rastreos con controles del navegador, bloqueadores de anuncios o ajustes del sistema operativo, asumiendo posibles limitaciones de funcionalidad. El uso de bloqueadores es compatible con el Servicio.
+
+18.4. Kinora procura que la experiencia funcione incluso sin cookies no esenciales: el núcleo del Servicio no depende de rastreo.
+
+ANEXO I — INVENTARIO DE COOKIES Y ALMACENAMIENTO
+Referencia. Los nombres pueden variar según la implementación; los prefijos asumen kinora:.
+
+Categoría	Nombre / clave	Proveedor	Finalidad	Duración	¿Consentimiento?
+Necesaria	kinora:consent (localStorage)	Kinora	Registrar su elección de cookies (categorías, fecha, versión)	Hasta borrado	No
+Necesaria	Cookie de seguridad/bot del borde	Proveedor de red/seguridad	Mitigar bots y abuso	Corta (minutos)	No
+Preferencia	kinora:mi-lista (localStorage)	Kinora	Guardar sus títulos	Hasta borrado	No
+Preferencia	kinora:prefs (localStorage)	Kinora	Idioma, audio, filtros	Hasta borrado	No
+Preferencia	kinora:subs-cache (localStorage/IndexedDB)	Kinora	Reutilizar subtítulos descargados	Hasta borrado o purga	No
+Analítica	Según proveedor (p. ej. _ga, _ga_*)	Proveedor de analítica	Medir uso de forma agregada	13–24 meses	Sí
+Publicidad	Según proveedor (p. ej. __gads, __gpi, IDE)	Red publicitaria y socios	Segmentación, medición, frecuencia	Hasta 13 meses	Sí
+Terceros de contenido	Según proveedor (p. ej. VISITOR_INFO1_LIVE, YSC en YouTube)	Proveedor de contenido	Reproducir tráilers/embeds y medir	Sesión a 12 meses	Según carga
+Nota: cuando el contenido se sirve por el proxy de Kinora, las cookies del origen pueden gestionarse del lado del servidor y no depositarse en su navegador.
+
+ANEXO II — TERCEROS, ROL Y UBICACIÓN
+Tercero / categoría	Rol	Para qué	Ubicación típica
+Proveedor de alojamiento y servidores	Encargado	Ejecutar backend y servir el Sitio	Fuera de Colombia (p. ej. EE. UU.)
+Red de distribución, proxy y seguridad	Encargado	Proxy de medios, caché, mitigación de abuso	Red global
+Proveedor de metadatos e imágenes	Responsable independiente	Sinopsis, pósters, calificaciones, IDs	Según proveedor
+Proveedores de video de origen	Responsable independiente	Flujos de reproducción	Variable (puede cambiar)
+Proveedores de subtítulos (si aplica)	Responsable independiente	Subtítulos	Variable
+Red publicitaria y socios	Responsable independiente	Anuncios y medición	Global
+Plataforma de video para tráilers (si aplica)	Responsable independiente	Tráilers	Global
+Analítica (si aplica)	Encargado o responsable	Estadísticas	Global
+Proveedor de correo	Encargado	Recibir y responder mensajes	Global
+ANEXO III — DERECHOS POR JURISDICCIÓN (REFERENCIA)
+Jurisdicción	Norma de referencia	Derechos clave
+Colombia	Ley 1581 de 2012 y decretos reglamentarios	Conocer, actualizar, rectificar, probar autorización, informarse del uso, quejarse ante la SIC, revocar, suprimir, acceder
+EEE / Reino Unido / Suiza	RGPD, UK GDPR, LPD	Acceso, rectificación, supresión, limitación, portabilidad, oposición, retirada del consentimiento
+California y otros estados de EE. UU.	Leyes estatales de privacidad	Conocer, acceder, corregir, eliminar, opt-out de venta/compartición, no discriminación
+México	LFPDPPP	Acceso, rectificación, cancelación, oposición, revocación
+Brasil	LGPD	Confirmación, acceso, corrección, anonimización, portabilidad, eliminación, información
+Argentina, Chile, Perú, Ecuador, Uruguay, Paraguay	Leyes locales de protección de datos	Acceso, rectificación, supresión, oposición y demás derechos equivalentes
+ANEXO IV — HISTORIAL DE VERSIONES
+Versión	Fecha	Cambios
+1.0	23/10/2026	Versión inicial
+1.1	23/10/2026	Ajustes de estructura y cookies
+2.0	24/10/2026	Modelo de anonimato del Operador; sección de cookies reescrita (inventario, consentimiento granular, revocación, señales de privacidad, Consent Mode); efecto del proxy; secciones de incidentes, conservación, jurisdicciones LatAm, representante UE; anexos I a IV
+Fin del documento.
