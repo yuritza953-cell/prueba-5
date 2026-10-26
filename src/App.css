@@ -1,0 +1,340 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* En táctil, el recuadro azul del navegador marcaba la hitbox del botón
+     y rompía la estética: se desactiva en toda la app. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg: #0a1ea0;
+  --bg-dark: #071577;
+  --azul: #3b82f6;
+  --azul-claro: #8ab8ff;
+  --texto: #eaf2ff;
+  --apagado: #a9c0e8;
+  --star: #facc15;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background: #050f33;
+  color: var(--texto);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--azul-claro);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(90, 160, 255, 0.45);
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Fondo ------------------------------------------------------------------ */
+
+.app__bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.app__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1000px 620px at 78% 8%, rgba(84, 148, 255, 0.28), transparent 62%),
+    radial-gradient(760px 520px at 8% 32%, rgba(30, 80, 220, 0.3), transparent 66%),
+    linear-gradient(180deg, #041034 0%, #071b60 26%, #0a2a8f 58%, #0a1ea0 100%);
+}
+
+.app__art {
+  position: absolute;
+  inset: -5%;
+  opacity: 0.34;
+  background-position: center 24%;
+  background-size: cover;
+  filter: blur(3px) saturate(1.12);
+  transform: scale(1.04);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.7) 48%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.7) 48%, transparent 100%);
+  animation: app-art-in 900ms var(--ease) both;
+}
+
+.app__art--out {
+  animation: app-art-out 760ms ease both;
+}
+
+.app__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 10, 42, 0.5) 0%, rgba(4, 10, 42, 0.12) 36%, rgba(4, 10, 42, 0.82) 100%),
+    radial-gradient(1200px 640px at 70% 0%, transparent 0%, rgba(4, 10, 42, 0.18) 100%);
+}
+
+@keyframes app-art-in {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+
+  to {
+    opacity: 0.34;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes app-art-out {
+  from {
+    opacity: 0.34;
+    transform: scale(1.04);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+
+/* Estructura ------------------------------------------------------------- */
+
+.shell {
+  position: relative;
+  width: min(1720px, 100%);
+  margin: 0 auto;
+  padding-right: clamp(18px, 3.5vw, 48px);
+  padding-left: clamp(18px, 3.5vw, 48px);
+}
+
+.view {
+  position: relative;
+  z-index: 1;
+  animation: view-in 520ms var(--ease) both;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Tipografía y controles compartidos ------------------------------------ */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #8ab8ff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 9px;
+  background: rgba(120, 175, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(140, 190, 255, 0.18);
+  color: #dce8ff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.back-btn:hover {
+  background: rgba(120, 175, 255, 0.2);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    filter 200ms ease,
+    background-color 200ms ease;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.03);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.btn--play {
+  background: linear-gradient(180deg, #f2f7ff, #b9d4ff);
+  box-shadow: 0 10px 34px rgba(90, 160, 255, 0.45);
+  color: #0b2a86;
+}
+
+.btn--play:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.btn--info {
+  background: rgba(10, 30, 120, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(140, 190, 255, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #eaf2ff;
+}
+
+.btn--info:hover:not(:disabled) {
+  background: rgba(30, 60, 160, 0.5);
+}
+
+.btn--ghost {
+  background: rgba(120, 175, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(140, 190, 255, 0.22);
+  color: #dce8ff;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: rgba(120, 175, 255, 0.2);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(120, 175, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(140, 190, 255, 0.18);
+  color: rgba(220, 235, 255, 0.88);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tag--audio {
+  background: rgba(64, 128, 255, 0.26);
+  box-shadow: inset 0 0 0 1px rgba(170, 210, 255, 0.3);
+  color: #fff;
+}
+
+.spin {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.browse__head-action {
+  padding: 9px 16px;
+  font-size: 12.5px;
+}
+
+/* Entrada directa a una ficha (/series/slug) mientras se resuelve el título. */
+.route-loading {
+  padding: clamp(70px, 14vh, 150px) 0 46vh;
+}
+
+.route-loading__ring {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin: 0 auto;
+  border: 2px solid rgba(140, 190, 255, 0.18);
+  border-top-color: #8ab8ff;
+  border-radius: 50%;
+  animation: spin 900ms linear infinite;
+}
+
+/* La barra de búsqueda se ancla abajo en móvil; el contenido reserva su alto.
+   --k-bottom-ad lo fija el banner móvil cuando la red entrega un anuncio. */
+@media (max-width: 900px) {
+  .app:not([data-view='home']) .foot__inner {
+    padding-bottom: calc(112px + var(--k-bottom-ad, 0px));
+  }
+
+  .app:not([data-view='home']) .view {
+    padding-bottom: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view,
+  .app__art,
+  .app__art--out {
+    animation: none;
+  }
+
+  .btn,
+  .back-btn {
+    transition: none;
+  }
+
+  .spin,
+  .route-loading__ring {
+    animation: none;
+  }
+}

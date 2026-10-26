@@ -1,0 +1,126 @@
+.ck {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.ck__card {
+  pointer-events: auto;
+  width: min(640px, 100%);
+  padding: 1.15rem 1.2rem 1.05rem;
+  border-radius: 16px;
+  background: rgba(10, 16, 32, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  color: #e8eefc;
+}
+
+.ck__title {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.ck__text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #b6c4e0;
+}
+
+.ck__text a {
+  color: #8eb6f0;
+  text-decoration: underline;
+}
+
+.ck__config {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.ck__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}
+
+.ck__row span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ck__row strong {
+  font-size: 0.86rem;
+}
+
+.ck__row small {
+  color: #8fa3c7;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.ck__row input {
+  margin-top: 0.2rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: #4f8dff;
+}
+
+.ck__actions {
+  margin-top: 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.ck__btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.84rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.ck__btn--ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d7e2f7;
+}
+
+.ck__btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ck__btn--primary {
+  background: linear-gradient(180deg, #4f8dff, #2f6bdd);
+  color: #fff;
+}
+
+.ck__btn--primary:hover {
+  filter: brightness(1.06);
+}
+
+@media (max-width: 520px) {
+  .ck__actions {
+    flex-direction: column-reverse;
+  }
+  .ck__btn {
+    width: 100%;
+  }
+}

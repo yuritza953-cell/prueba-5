@@ -1,0 +1,95 @@
+/* Contenedores publicitarios ------------------------------------------------
+   Todos nacen cerrados (alto 0): si la red no entrega creatividad, el bloque
+   no ocupa espacio ni mueve el contenido. En cuanto AdSlot detecta un anuncio
+   con tamaño real añade .is-filled y el contenedor adopta su alto natural. */
+
+.adslot {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.adslot.is-filled {
+  height: auto;
+  opacity: 1;
+  /* El anuncio se separa de lo que tiene alrededor solo cuando existe. */
+  margin-block: 2px;
+}
+
+.adslot__host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  /* Sin fondo ni borde propios: el creativo manda. */
+  overflow: hidden;
+}
+
+.adslot__host iframe,
+.adslot__host img,
+.adslot__host ins,
+.adslot__host > div {
+  max-width: 100%;
+}
+
+/* Banner de escritorio 300x250 (columna lateral de /watch). */
+.adslot--rect .adslot__host {
+  min-height: 250px;
+  align-items: flex-start;
+}
+
+/* Banner multitag de vídeo (columna lateral de /watch). */
+.adslot--video .adslot__host {
+  min-height: 90px;
+  align-items: flex-start;
+}
+
+/* Banner móvil 300x100. */
+.adslot--mobile .adslot__host {
+  min-height: 100px;
+  max-width: 300px;
+}
+
+/* Hueco del banner móvil sobre la barra de búsqueda inferior. */
+.topbar__ad {
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 8px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.topbar__ad .adslot {
+  border-radius: 12px;
+  background: rgba(8, 20, 58, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(147, 197, 253, 0.16),
+    0 10px 24px -14px rgba(2, 8, 32, 0.9);
+}
+
+/* Columna lateral del reproductor: los banners viven arriba de la tabla. */
+.watch__ads {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.watch__ads .adslot.is-filled {
+  border-radius: 12px;
+  background: rgba(6, 18, 54, 0.45);
+}
+
+@media (max-width: 900px) {
+  .watch__ads .adslot.is-filled {
+    border-radius: 10px;
+  }
+}

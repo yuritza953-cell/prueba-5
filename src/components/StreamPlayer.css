@@ -1,0 +1,949 @@
+.stream-player {
+  --sp-radius: 18px;
+  --sp-glass: rgba(16, 16, 26, 0.55);
+  --sp-border: rgba(255, 255, 255, 0.14);
+  --sp-accent: #7eb6ff;
+  --sp-accent2: #a78bfa;
+  --sp-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 74vh;
+  background: #05050a;
+  border-radius: var(--sp-radius);
+  overflow: hidden;
+  color: #f4f4f5;
+  box-shadow:
+    inset 0 0 0 1px var(--sp-border),
+    0 24px 48px -20px rgba(0, 0, 0, 0.85);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.stream-player:fullscreen {
+  border-radius: 0;
+  max-height: none;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+/* Con los controles ocultos y el cursor quieto, no debe aparecer la flecha. */
+.stream-player.is-full:not(.stream-player--ui) {
+  cursor: none;
+}
+
+.stream-player__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* Controles glass */
+.stream-player__ctl {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  padding: 3.6rem 1rem 0.8rem;
+  /* Degradado por tramos: el borde superior se disuelve sin corte. */
+  background: linear-gradient(
+    180deg,
+    rgba(6, 6, 12, 0) 0%,
+    rgba(6, 6, 12, 0.18) 32%,
+    rgba(6, 6, 12, 0.52) 62%,
+    rgba(6, 6, 12, 0.86) 100%
+  );
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.stream-player--ui .stream-player__ctl {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.stream-player__track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 14px;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.stream-player__track::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: height 0.15s ease;
+}
+
+.stream-player__track:hover::before {
+  height: 5px;
+}
+
+.stream-player__played {
+  position: absolute;
+  left: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sp-accent), var(--sp-accent2));
+  pointer-events: none;
+  transition: height 0.15s ease;
+}
+
+.stream-player__track:hover .stream-player__played {
+  height: 5px;
+}
+
+.stream-player__knob {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 4px rgba(126, 182, 255, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.stream-player__track:hover .stream-player__knob {
+  opacity: 1;
+}
+
+.stream-player__row {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.stream-player__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 150ms var(--sp-ease),
+    color 150ms ease;
+}
+
+.stream-player__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.stream-player__btn:active {
+  transform: scale(0.94);
+}
+
+.stream-player__btn.is-on {
+  color: var(--sp-accent);
+}
+
+/* ±5 s: el número va dentro del icono circular. */
+.stream-player__seek {
+  position: relative;
+}
+
+.stream-player__seek-num {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: currentColor;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.stream-player__time {
+  padding: 0 0.35rem;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.stream-player__spacer {
+  flex: 1;
+}
+
+/* Volumen ---------------------------------------------------------------- */
+.stream-player__vol {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.stream-player__range {
+  --sp-vol: 90%;
+  width: 74px;
+  height: 18px;
+  margin: 0 4px;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.stream-player__range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--sp-accent) 0%,
+    var(--sp-accent) var(--sp-vol),
+    rgba(255, 255, 255, 0.24) var(--sp-vol),
+    rgba(255, 255, 255, 0.24) 100%
+  );
+}
+
+.stream-player__range::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  border: 0;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 3px rgba(126, 182, 255, 0.22),
+    0 1px 4px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 150ms var(--sp-ease),
+    box-shadow 150ms ease;
+}
+
+.stream-player__range:hover::-webkit-slider-thumb {
+  transform: scale(1.18);
+  box-shadow:
+    0 0 0 4px rgba(126, 182, 255, 0.28),
+    0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.stream-player__range::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.stream-player__range::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sp-accent), var(--sp-accent2));
+}
+
+.stream-player__range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 3px rgba(126, 182, 255, 0.22),
+    0 1px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* Menús del reproductor -------------------------------------------------- */
+.stream-player__pop {
+  position: relative;
+}
+
+.stream-player__menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 214px;
+  max-width: min(280px, 76vw);
+  max-height: min(52vh, 320px);
+  padding: 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 13px;
+  background: rgba(10, 18, 44, 0.94);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 22px 46px -18px rgba(0, 0, 0, 0.9);
+  transform-origin: bottom right;
+  animation: sp-menu-pop 180ms var(--sp-ease) both;
+  scrollbar-width: none;
+}
+
+.stream-player__menu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@keyframes sp-menu-pop {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.975);
+  }
+}
+
+.stream-player__menu-label {
+  margin: 3px 8px 5px;
+  color: rgba(200, 222, 255, 0.55);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.stream-player__menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #e8eefc;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.stream-player__menu-item > span {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.stream-player__menu-item small {
+  flex: none;
+  color: rgba(190, 214, 248, 0.55);
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+.stream-player__menu-item svg {
+  flex: none;
+  color: var(--sp-accent);
+}
+
+.stream-player__menu-item:hover,
+.stream-player__menu-item.is-active {
+  background: rgba(126, 182, 255, 0.14);
+  color: #fff;
+}
+
+.stream-player__menu-item.is-accent {
+  color: var(--sp-accent);
+}
+
+.stream-player__menu-hint {
+  margin: 5px 9px;
+  color: rgba(190, 214, 248, 0.62);
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.stream-player__quality-btn {
+  width: auto;
+  gap: 5px;
+  padding: 0 7px;
+}
+
+.stream-player__quality-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Toque doble / teclado -------------------------------------------------- */
+.stream-player__flash {
+  position: absolute;
+  top: 16%;
+  left: 50%;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(8, 14, 34, 0.72);
+  border: 1px solid rgba(147, 197, 253, 0.25);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: sp-flash 620ms var(--sp-ease) both;
+}
+
+.stream-player__flash--vol {
+  top: 50%;
+  left: 50%;
+}
+
+@keyframes sp-flash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 6px) scale(0.96);
+  }
+
+  18% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -4px) scale(0.98);
+  }
+}
+
+.stream-player__msg {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(8, 8, 15, 0.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.stream-player__msg p {
+  max-width: 28rem;
+  margin: 0;
+  color: #e8e8ed;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.stream-player__boot {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.stream-player__spinner {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-top-color: var(--sp-accent);
+  border-radius: 50%;
+  animation: sp-spin 0.7s linear infinite;
+}
+
+@keyframes sp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stream-player video::cue {
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1.05em;
+  line-height: 1.35;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Pantalla de play + versículo */
+.stream-player__gate {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.stream-player__gate-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  filter: blur(2px) saturate(1.05);
+  transform: scale(1.04);
+}
+
+.stream-player__gate-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(8, 14, 32, 0.35) 0%, rgba(4, 8, 20, 0.82) 70%),
+    linear-gradient(180deg, rgba(5, 10, 28, 0.4), rgba(5, 10, 28, 0.75));
+}
+
+.stream-player__gate-play {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(12, 20, 48, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(126, 182, 255, 0.35),
+    0 18px 48px rgba(0, 0, 0, 0.55),
+    inset 0 0 24px rgba(79, 141, 255, 0.15);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stream-player__gate-play img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(47, 107, 221, 0.45));
+}
+
+.stream-player__gate-play:hover:not(:disabled) {
+  transform: scale(1.06);
+  box-shadow:
+    0 0 0 1px rgba(126, 182, 255, 0.55),
+    0 22px 56px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(79, 141, 255, 0.35);
+}
+
+.stream-player__gate-play:disabled {
+  cursor: wait;
+}
+
+.stream-player__verse {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-width: 34rem;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.stream-player__verse-text {
+  color: rgba(236, 242, 255, 0.92);
+  font-size: clamp(0.85rem, 2.1vw, 1.05rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.45;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+}
+
+.stream-player__verse-ref {
+  color: #8eb6f0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.stream-player__gate-hint {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #8fa8d4;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Anuncio ----------------------------------------------------------------- */
+.stream-player__ad {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow: auto;
+  background: rgba(4, 8, 20, 0.92);
+}
+
+.stream-player__ad-card {
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  max-height: 100%;
+  min-height: 0;
+  padding: 1rem 1rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(16, 20, 36, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  /* El bloque de AdSense trae alto fijo en línea; sin esto la tarjeta crece
+     por encima del reproductor y el botón de saltar queda fuera. */
+  overflow: hidden;
+}
+
+.stream-player__ad-label {
+  margin: 0 0 0.7rem;
+  color: #9eb6dc;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stream-player__ad-slot {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  max-height: 260px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Creatividad del preroll: ocupa el hueco y respeta la proporción del vídeo. */
+.stream-player__ad-media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  background: #000;
+}
+
+.stream-player__ad-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  cursor: pointer;
+}
+
+.stream-player__ad-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border: 2px solid rgba(140, 190, 255, 0.22);
+  border-top-color: #8ab8ff;
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+.stream-player__ad-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  color: #d5e2f7;
+  font-size: 14px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.stream-player__ad-placeholder small {
+  color: #7a8fb8;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.stream-player__ad-skip {
+  display: block;
+  width: 100%;
+  margin-top: 0.85rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #4f8dff, #2f6bdd);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stream-player__ad-skip:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: rgba(120, 150, 200, 0.25);
+  color: #c8d6f0;
+}
+
+.stream-player__ad-skip:not(:disabled):hover {
+  filter: brightness(1.08);
+}
+
+@media (max-width: 720px) {
+  .stream-player {
+    border-radius: 13px;
+  }
+
+  .stream-player__ctl {
+    padding: 2.4rem 0.55rem 0.5rem;
+  }
+
+  .stream-player__row {
+    gap: 1px;
+  }
+
+  .stream-player__btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+
+  .stream-player__time {
+    padding: 0 0.2rem;
+    font-size: 10.5px;
+  }
+
+  .stream-player__range {
+    display: none;
+  }
+
+  .stream-player__quality-tag {
+    display: none;
+  }
+
+  .stream-player__quality-btn {
+    width: 30px;
+    padding: 0;
+  }
+
+  .stream-player__menu {
+    right: -34px;
+    min-width: 190px;
+    max-height: 46vh;
+  }
+
+  /* Anuncio compacto: en móvil el reproductor mide ~200px de alto y la
+     tarjeta debe caber entera, con el botón de saltar siempre visible. */
+  .stream-player__ad {
+    align-items: stretch;
+    padding: 0.45rem;
+  }
+
+  .stream-player__ad-card {
+    max-height: 100%;
+    padding: 0.55rem 0.6rem 0.6rem;
+    border-radius: 12px;
+  }
+
+  /* En un player de 16:9 pequeño la proporción dejaría el botón fuera:
+     el hueco pasa a tener alto fijo y el vídeo se adapta dentro. */
+  .stream-player__ad-slot {
+    aspect-ratio: auto;
+    height: 104px;
+    flex: 1 1 104px;
+  }
+
+  .stream-player__ad-label {
+    margin: 0 0 0.35rem;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+  }
+
+  .stream-player__ad-placeholder {
+    gap: 2px;
+    font-size: 11.5px;
+  }
+
+  .stream-player__ad-placeholder small {
+    font-size: 9.5px;
+  }
+
+  .stream-player__ad-skip {
+    margin-top: 0.45rem;
+    padding: 0.42rem 0.8rem;
+    font-size: 11.5px;
+  }
+
+  .stream-player__gate-play {
+    width: 86px;
+    height: 86px;
+  }
+
+  .stream-player__gate-play img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .stream-player__verse-text {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .stream-player__ctl {
+    padding-top: 1.6rem;
+  }
+
+  .stream-player__gate {
+    gap: 0.5rem;
+  }
+
+  .stream-player__gate-play {
+    width: 64px;
+    height: 64px;
+  }
+
+  .stream-player__gate-play img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .stream-player__verse {
+    display: none;
+  }
+
+  .stream-player__ad-card {
+    max-height: calc(100vh - 1.4rem);
+    padding: 0.6rem;
+  }
+
+  .stream-player__ad-slot,
+  .stream-player__ad-ins {
+    min-height: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stream-player__ctl,
+  .stream-player__btn,
+  .stream-player__knob,
+  .stream-player__range::-webkit-slider-thumb,
+  .stream-player__track::before,
+  .stream-player__played {
+    transition: none;
+  }
+
+  .stream-player__menu,
+  .stream-player__flash {
+    animation: none;
+  }
+
+  .stream-player__spinner {
+    animation-duration: 1.2s;
+  }
+}
+
+
+/* Botón play/pausa grande al centro */
+.stream-player__center-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border: 0;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(8, 16, 36, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 12px 32px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s ease;
+}
+.stream-player--ui .stream-player__center-btn,
+.stream-player__center-btn:not(.is-playing) {
+  opacity: 1;
+  pointer-events: auto;
+}
+.stream-player__center-btn.is-playing {
+  /* visible solo con UI (hover / touch) */
+}
+.stream-player__center-btn:hover {
+  background: rgba(12, 28, 64, 0.72);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+.stream-player__center-btn:active {
+  transform: translate(-50%, -50%) scale(0.96);
+}
+.stream-player__boot {
+  z-index: 5;
+}
+@media (max-width: 640px) {
+  .stream-player__center-btn {
+    width: 64px;
+    height: 64px;
+  }
+}

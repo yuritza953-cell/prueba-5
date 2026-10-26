@@ -1,0 +1,343 @@
+.player {
+  --pl-ink: #f4f4f5;
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 74vh;
+  background: #08080f;
+  border-radius: 18px;
+  overflow: hidden;
+  outline: none;
+  color: var(--pl-ink);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 30px 60px -28px rgba(0, 0, 0, 0.92);
+}
+
+.player:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 30px 60px -28px rgba(0, 0, 0, 0.92);
+}
+
+.player:fullscreen {
+  border-radius: 0;
+  max-height: none;
+}
+
+.player__host {
+  position: absolute;
+  inset: 0;
+}
+
+.player__host iframe,
+.player__host > div {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.player__poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+  animation: player-fade 420ms ease both;
+}
+
+@keyframes player-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.player__fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(8, 8, 15, 0.62);
+  text-align: center;
+}
+
+.player__fallback p {
+  margin: 0;
+  max-width: 42ch;
+  color: rgba(244, 244, 245, 0.62);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.player__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: rgba(20, 18, 26, 0.55);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: rgba(244, 244, 245, 0.92);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.player__big {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(20, 18, 26, 0.55);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 18px 40px -16px rgba(0, 0, 0, 0.9);
+  color: var(--pl-ink);
+  cursor: pointer;
+  transition:
+    transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 200ms ease;
+}
+
+.player__big:hover {
+  background: rgba(38, 35, 46, 0.75);
+  transform: scale(1.06);
+}
+
+.player__big:active {
+  transform: scale(0.95);
+}
+
+/* Controles ------------------------------------------------------------ */
+
+.player__ctl {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 4;
+  padding: 44px 16px 12px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.84) 100%);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 220ms ease,
+    transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+  /* Aunque este desvanecida, la franja sigue interceptando el clic: si el
+     evento cayera al iframe de YouTube, el video se pausaria solo. */
+  pointer-events: auto;
+}
+
+.player[data-ui] .player__ctl {
+  opacity: 1;
+  transform: none;
+}
+
+.player__track {
+  position: relative;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  /* La barra de progreso solo responde cuando los controles estan a la vista
+     (si no, un clic al aire haria un salto inesperado). */
+  pointer-events: none;
+}
+
+.player[data-ui] .player__track {
+  pointer-events: auto;
+}
+
+.player__track::before {
+  content: '';
+  position: absolute;
+  inset: auto 0;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(244, 244, 245, 0.18);
+  transition: height 140ms ease;
+}
+
+.player__track:hover::before {
+  height: 6px;
+}
+
+.player__played {
+  position: relative;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--pl-ink);
+  transition: height 140ms ease;
+  pointer-events: none;
+}
+
+.player__track:hover .player__played {
+  height: 6px;
+}
+
+.player__knob {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--pl-ink);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+
+.player__track:hover .player__knob {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.player__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.player__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(244, 244, 245, 0.88);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.player__btn:hover {
+  background: rgba(244, 244, 245, 0.12);
+}
+
+.player__btn:active {
+  transform: scale(0.9);
+}
+
+/* Los saltos de 15 s llevan el numero sobre el icono. */
+.player__skip {
+  position: relative;
+}
+
+.player__skip svg {
+  transform: translateY(-3px);
+}
+
+.player__skip i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  font-size: 7.5px;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.player__time {
+  margin-left: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(244, 244, 245, 0.72);
+}
+
+.player__spacer {
+  flex: 1 1 auto;
+}
+
+.player__vol {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.player__vol input {
+  width: 0;
+  opacity: 0;
+  accent-color: #f4f4f5;
+  cursor: pointer;
+  transition:
+    width 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 180ms ease;
+}
+
+.player__vol:hover input,
+.player__vol input:focus-visible {
+  width: 74px;
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .player {
+    border-radius: 12px;
+  }
+
+  .player__vol input {
+    display: none;
+  }
+
+  .player__time {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player__ctl,
+  .player__poster,
+  .player__played,
+  .player__knob,
+  .player__vol input {
+    transition: none;
+  }
+
+  .player__poster {
+    animation: none;
+  }
+}

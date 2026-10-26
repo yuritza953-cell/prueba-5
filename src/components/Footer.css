@@ -1,0 +1,306 @@
+.foot {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  background: linear-gradient(180deg, rgba(4, 13, 44, 0.72) 0%, rgba(3, 10, 34, 0.9) 42%, rgba(3, 9, 30, 0.96) 100%);
+}
+
+/* Resplandor azul del pie. Va en su propia capa con desvanecido vertical:
+   si nace pegado al borde superior, deja un corte visible en la union con
+   el contenido (el degradado del pie empieza en ese mismo pixel). */
+.foot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 380px;
+  background: radial-gradient(820px 460px at 88% 60px, rgba(70, 140, 255, 0.18), transparent 72%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 160px);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 160px);
+  pointer-events: none;
+}
+
+/* Sin línea: el contenido se funde con el pie mediante un degradado. */
+.foot::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: clamp(70px, 9vw, 130px);
+  background: linear-gradient(
+    180deg,
+    rgba(4, 13, 44, 0) 0%,
+    rgba(4, 13, 44, 0.24) 38%,
+    rgba(4, 13, 44, 0.54) 72%,
+    rgba(4, 13, 44, 0.72) 100%
+  );
+  pointer-events: none;
+}
+
+.foot__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(38px, 5vw, 62px);
+  padding-bottom: 30px;
+}
+
+.foot__cta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: clamp(30px, 4vw, 48px);
+  border-bottom: 1px solid rgba(140, 190, 255, 0.12);
+}
+
+.foot__cta-copy {
+  max-width: 760px;
+}
+
+.foot__cta-title {
+  margin: 10px 0 10px;
+  color: #fff;
+  font-size: clamp(34px, 5.6vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.foot__cta-text {
+  max-width: 46ch;
+  margin: 0;
+  color: #b9cfee;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.foot__cta-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 9px;
+  height: 50px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f2f7ff, #b9d4ff);
+  box-shadow: 0 16px 40px -18px rgba(90, 160, 255, 0.8);
+  color: #0b2a86;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 200ms ease;
+}
+
+.foot__cta-btn:hover {
+  filter: brightness(1.04);
+}
+
+.foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+  gap: clamp(28px, 4vw, 64px);
+  padding: clamp(30px, 4vw, 46px) 0;
+}
+
+.foot__news h3,
+.foot__col h3 {
+  margin: 0 0 10px;
+  color: #eaf2ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.foot__news p {
+  max-width: 40ch;
+  margin: 0 0 18px;
+  color: #9fb8dc;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.foot__field {
+  display: block;
+  max-width: 430px;
+}
+
+.foot__field-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.foot__field-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 13px;
+  background: rgba(12, 28, 82, 0.62);
+  box-shadow:
+    inset 0 0 0 1px rgba(140, 190, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: box-shadow 220ms ease;
+}
+
+.foot__field-row:focus-within {
+  box-shadow:
+    inset 0 0 0 1px rgba(170, 210, 255, 0.42),
+    0 12px 30px -20px rgba(60, 130, 255, 0.8);
+}
+
+.foot__field input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 38px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: #eaf2ff;
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.foot__field input::placeholder {
+  color: rgba(200, 222, 255, 0.4);
+}
+
+.foot__field button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 9px;
+  background: rgba(90, 150, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(170, 210, 255, 0.24);
+  color: #eaf2ff;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.foot__field button:hover {
+  background: rgba(90, 150, 255, 0.34);
+}
+
+.foot__field button.is-sent {
+  background: rgba(74, 222, 128, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(134, 239, 172, 0.36);
+  color: #d7ffe3;
+}
+
+.foot__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.foot__col button,
+.foot__col a {
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: #aec6e8;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.foot__col button:hover,
+.foot__col a:hover {
+  color: #fff;
+}
+
+.foot__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(140, 190, 255, 0.1);
+  color: #8fa8cc;
+  font-size: 11.5px;
+}
+
+.foot__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.foot__logo img {
+  display: block;
+  flex: none;
+  opacity: 0.9;
+}
+
+.foot__tagline {
+  color: #7f99c0;
+}
+
+@media (max-width: 900px) {
+  .foot__cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .foot__cta-btn {
+    height: 46px;
+  }
+
+  .foot__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .foot__news {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .foot__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .foot__field-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .foot__field button {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foot__cta-btn,
+  .foot__field-row,
+  .foot__field button,
+  .foot__col button,
+  .foot__col a {
+    transition: none;
+  }
+}

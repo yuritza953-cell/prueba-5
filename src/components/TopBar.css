@@ -1,0 +1,356 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  padding: 11px clamp(16px, 3vw, 40px);
+}
+
+/* El fondo vive en un pseudo-elemento: si el desenfoque estuviera en .topbar,
+   el dock fijo de móvil se posicionaría contra la cabecera y no contra la
+   ventana (backdrop-filter crea un containing block para position: fixed). */
+.topbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(4, 14, 46, 0.97) 0%, rgba(5, 18, 58, 0.84) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow:
+    inset 0 -1px 0 rgba(140, 190, 255, 0.1),
+    0 18px 40px -28px rgba(2, 8, 32, 0.9);
+  pointer-events: none;
+}
+
+/* El borde inferior se disuelve en la pagina en vez de cortar en seco. */
+.topbar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -34px;
+  left: 0;
+  height: 34px;
+  background: linear-gradient(180deg, rgba(5, 18, 58, 0.82) 0%, rgba(5, 18, 58, 0.34) 46%, rgba(5, 18, 58, 0) 100%);
+  pointer-events: none;
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* La flecha vive en la barra fija, junto al logo: nunca se va con el scroll.
+   Solo el trazo, sin caja: se lee como parte de la marca. */
+.topbar__back {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    opacity 160ms ease,
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.topbar__back:hover {
+  opacity: 0.72;
+}
+
+.topbar__back:active {
+  transform: scale(0.9);
+}
+
+.topbar__logo {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.topbar__logo span {
+  color: #66a3ff;
+}
+
+.topbar__search {
+  display: flex;
+  justify-self: center;
+  width: min(680px, 100%);
+}
+
+/* La misma PromptBar, con el acabado azul de detail.html. */
+.topbar__prompt .prompt-bar__field {
+  padding: 10px 13px;
+  background: linear-gradient(180deg, rgba(46, 104, 226, 0.62) 0%, rgba(19, 55, 158, 0.66) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(147, 197, 253, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px -16px rgba(3, 10, 60, 0.55);
+  transition: box-shadow 260ms ease;
+}
+
+.topbar__prompt .prompt-bar__field:focus-within {
+  box-shadow:
+    inset 0 0 0 1px rgba(178, 216, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 12px 32px -16px rgba(3, 10, 60, 0.6);
+}
+
+/* Sin brillo superpuesto: se veia como un rectangulo aparte. */
+.topbar__prompt .prompt-bar__field::after,
+.topbar__prompt .prompt-bar__field::before {
+  display: none;
+}
+
+.topbar__prompt .prompt-bar__spot {
+  display: none;
+}
+
+.topbar__prompt .prompt-bar__input {
+  font-size: 13.5px;
+}
+
+.topbar__prompt .prompt-bar__send[data-armed] {
+  background: linear-gradient(180deg, #a7c8ff, #4f8dff);
+  color: #06123c;
+  box-shadow: 0 4px 14px rgba(40, 110, 240, 0.5);
+}
+
+.topbar__prompt .prompt-bar__send {
+  background: rgba(160, 200, 255, 0.16);
+  color: rgba(220, 235, 255, 0.55);
+}
+
+.topbar__prompt .prompt-bar__bar {
+  gap: 2px;
+}
+
+.topbar__prompt .prompt-bar__pick {
+  color: rgba(220, 235, 255, 0.78);
+}
+
+.topbar__prompt .prompt-bar__pick:hover,
+.topbar__prompt .prompt-bar__pick[data-on] {
+  background: rgba(160, 205, 255, 0.16);
+  color: #fff;
+}
+
+.topbar__prompt .prompt-bar__menu {
+  box-shadow:
+    inset 0 0 0 1px rgba(147, 197, 253, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 44px -16px rgba(2, 8, 32, 0.85);
+}
+
+.topbar__prompt .prompt-bar__glow {
+  background: rgba(160, 205, 255, 0.14);
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #dce8ff;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.topbar__icon:hover:not(:disabled) {
+  background: rgba(140, 190, 255, 0.14);
+}
+
+.topbar__icon:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.topbar__icon:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.topbar__icon--accent {
+  background: linear-gradient(180deg, #5ea0ff, #2f6bdd);
+  color: #fff;
+  box-shadow: 0 6px 18px -6px rgba(40, 110, 240, 0.8);
+}
+
+.topbar__icon--accent:hover:not(:disabled) {
+  background: linear-gradient(180deg, #77b0ff, #3877ee);
+}
+
+.topbar__count {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #ffd23f;
+  color: #06123c;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* El banner móvil solo existe cuando la barra de búsqueda está anclada
+   abajo; en escritorio la cabecera no reserva nada. */
+.topbar .topbar__ad {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 14px;
+    padding: 10px 16px;
+  }
+
+  .topbar__brand {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 8px;
+  }
+
+  .topbar__actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* En móvil la barra de búsqueda deja la cabecera y se ancla abajo, al
+     alcance del pulgar. En el inicio no se usa: ahí vive en el hero. */
+  .topbar__search {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 45;
+    width: 100vw;
+    max-width: 100vw;
+    justify-self: stretch;
+    /* El banner y la barra se apilan: el anuncio queda justo encima. */
+    flex-direction: column;
+    align-items: center;
+    /* Un poco más arriba y sin caja opaca: solo un velo degradado que se
+       deshace hacia el contenido (antes se veía el corte del fondo). */
+    padding: 12px clamp(12px, 4vw, 20px) calc(16px + env(safe-area-inset-bottom));
+    background: linear-gradient(
+      180deg,
+      rgba(4, 14, 46, 0) 0%,
+      rgba(4, 14, 46, 0.12) 34%,
+      rgba(4, 14, 46, 0.4) 68%,
+      rgba(4, 14, 46, 0.72) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Una sombra corta (no un panel) separa la barra del vídeo/contenido. */
+  .topbar__search .prompt-bar__field {
+    box-shadow:
+      inset 0 0 0 1px rgba(147, 197, 253, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 12px 28px -12px rgba(2, 8, 32, 0.85);
+  }
+
+  .topbar__search > * {
+    pointer-events: auto;
+  }
+
+  /* Al estar anclada abajo, sus menús deben abrirse hacia arriba. La variante
+     [data-collapsed] de PromptBar gana por especificidad, así que se repite. */
+  .topbar .topbar__prompt .prompt-bar__menu,
+  .topbar .topbar__prompt[data-collapsed] .prompt-bar__menu,
+  .topbar .topbar__prompt[data-drop] .prompt-bar__menu {
+    top: auto;
+    bottom: calc(100% + 8px);
+    transform-origin: bottom center;
+  }
+
+  .topbar .topbar__prompt .prompt-bar__menu[data-kind='model'],
+  .topbar .topbar__prompt .prompt-bar__menu[data-kind='audio'],
+  .topbar .topbar__prompt .prompt-bar__menu[data-kind='lang'],
+  .topbar .topbar__prompt[data-collapsed] .prompt-bar__menu[data-kind='model'],
+  .topbar .topbar__prompt[data-collapsed] .prompt-bar__menu[data-kind='audio'],
+  .topbar .topbar__prompt[data-collapsed] .prompt-bar__menu[data-kind='lang'],
+  .topbar .topbar__prompt[data-drop] .prompt-bar__menu[data-kind='model'],
+  .topbar .topbar__prompt[data-drop] .prompt-bar__menu[data-kind='audio'],
+  .topbar .topbar__prompt[data-drop] .prompt-bar__menu[data-kind='lang'] {
+    transform-origin: bottom left;
+  }
+
+  .topbar__prompt .prompt-bar__input {
+    font-size: 16px;
+  }
+
+  .topbar .topbar__ad {
+    display: flex;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar__logo {
+    font-size: 19px;
+  }
+
+  .topbar__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .topbar__prompt .prompt-bar__pick span {
+    max-width: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar__icon,
+  .topbar__back {
+    transition: none;
+  }
+}
+
+.topbar__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar__mark {
+  display: block;
+  flex: none;
+}

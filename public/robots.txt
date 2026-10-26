@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kinora.com.co/sitemap.xml
+
+# Bloquear APIs y proxies (no indexar)
+Disallow: /api/

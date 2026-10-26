@@ -1,0 +1,40 @@
+/** 33 versículos — se elige uno al azar en la pantalla de play */
+export const BIBLE_VERSES = [
+  { ref: 'Juan 3:16', text: 'Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree no se pierda, mas tenga vida eterna.' },
+  { ref: 'Filipenses 4:13', text: 'Todo lo puedo en Cristo que me fortalece.' },
+  { ref: 'Salmos 23:1', text: 'Jehová es mi pastor; nada me faltará.' },
+  { ref: 'Proverbios 3:5', text: 'Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia.' },
+  { ref: 'Josué 1:9', text: 'Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo.' },
+  { ref: 'Isaías 41:10', text: 'No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo.' },
+  { ref: 'Mateo 11:28', text: 'Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.' },
+  { ref: 'Romanos 8:28', text: 'Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien.' },
+  { ref: 'Jeremías 29:11', text: 'Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz y no de mal.' },
+  { ref: 'Salmos 46:1', text: 'Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.' },
+  { ref: '2 Timoteo 1:7', text: 'Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio.' },
+  { ref: 'Mateo 6:33', text: 'Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.' },
+  { ref: 'Salmos 119:105', text: 'Lámpara es a mis pies tu palabra, y lumbrera a mi camino.' },
+  { ref: 'Juan 14:6', text: 'Jesús le dijo: Yo soy el camino, y la verdad, y la vida; nadie viene al Padre sino por mí.' },
+  { ref: 'Romanos 12:2', text: 'No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento.' },
+  { ref: 'Gálatas 5:22-23', text: 'Mas el fruto del Espíritu es amor, gozo, paz, paciencia, benignidad, bondad, fe, mansedumbre, templanza.' },
+  { ref: 'Efesios 2:8', text: 'Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios.' },
+  { ref: 'Salmos 27:1', text: 'Jehová es mi luz y mi salvación; ¿de quién temeré?' },
+  { ref: '1 Corintios 16:14', text: 'Todas vuestras cosas sean hechas con amor.' },
+  { ref: 'Hebreos 11:1', text: 'Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve.' },
+  { ref: 'Mateo 5:14', text: 'Vosotros sois la luz del mundo; una ciudad asentada sobre un monte no se puede esconder.' },
+  { ref: 'Salmos 37:5', text: 'Encomienda a Jehová tu camino, y confía en él; y él hará.' },
+  { ref: 'Juan 8:12', text: 'Yo soy la luz del mundo; el que me sigue no andará en tinieblas, sino que tendrá la luz de la vida.' },
+  { ref: 'Romanos 15:13', text: 'Y el Dios de esperanza os llene de todo gozo y paz en el creer.' },
+  { ref: 'Colosenses 3:23', text: 'Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres.' },
+  { ref: 'Salmos 34:8', text: 'Gustad, y ved que es bueno Jehová; dichoso el hombre que confía en él.' },
+  { ref: '1 Juan 4:19', text: 'Nosotros le amamos a él, porque él nos amó primero.' },
+  { ref: 'Isaías 40:31', text: 'Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas.' },
+  { ref: 'Mateo 19:26', text: 'Para los hombres esto es imposible, mas para Dios todo es posible.' },
+  { ref: 'Salmos 121:2', text: 'Mi socorro viene de Jehová, que hizo los cielos y la tierra.' },
+  { ref: 'Juan 16:33', text: 'En el mundo tendréis aflicción; pero confiad, yo he vencido al mundo.' },
+  { ref: 'Proverbios 16:3', text: 'Encomienda a Jehová tus obras, y tus pensamientos serán afirmados.' },
+  { ref: 'Apocalipsis 21:4', text: 'Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni más llanto, ni clamor, ni dolor.' },
+];
+
+export function randomVerse() {
+  return BIBLE_VERSES[Math.floor(Math.random() * BIBLE_VERSES.length)];
+}

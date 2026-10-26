@@ -1,0 +1,601 @@
+.prompt-bar {
+  --pb-bg: rgba(38, 35, 46, 0.66);
+  --pb-ink: #f5f5f5;
+  --pb-menu: rgba(28, 26, 35, 0.9);
+  --pb-w: 400px;
+  --pb-radius: 16px;
+  --pb-press: 0.96;
+  --pb-spark: #b39dff;
+  --pb-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --pb-muted: color-mix(in srgb, var(--pb-ink) 55%, transparent);
+  --pb-hover: color-mix(in srgb, var(--pb-ink) 8%, transparent);
+  --pb-rim: rgba(255, 255, 255, 0.08);
+  --pb-rim-top: rgba(255, 255, 255, 0.07);
+  --pb-frost-shadow:
+    0 22px 44px -20px rgba(0, 0, 0, 0.8),
+    0 6px 16px -8px rgba(0, 0, 0, 0.5);
+  --pb-mx: 50%;
+  --pb-my: 50%;
+
+  position: relative;
+  width: min(var(--pb-w), 100%);
+  color: var(--pb-ink);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  transition: width 420ms var(--pb-ease-out);
+}
+
+/* Menus ------------------------------------------------------------------ */
+.prompt-bar__menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  left: 0;
+  z-index: 2;
+  padding: 4px;
+  /* Cinco opciones visibles; el resto se desplaza sin barra a la vista. */
+  max-height: 188px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  border-radius: 12px;
+  background: var(--pb-menu);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow:
+    inset 0 0 0 1px var(--pb-rim),
+    inset 0 1px 0 var(--pb-rim-top),
+    0 10px 30px -10px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.08);
+  transform-origin: bottom center;
+  animation: prompt-bar-pop 180ms var(--pb-ease-out) both;
+}
+
+.prompt-bar__menu[data-kind='model'],
+.prompt-bar__menu[data-kind='audio'] {
+  right: auto;
+  width: 200px;
+  transform-origin: bottom left;
+}
+
+/* Anclada arriba (modo busqueda) o dentro de la barra superior, los menus no
+   caben por encima: se abren hacia abajo. */
+.prompt-bar[data-collapsed] .prompt-bar__menu,
+.prompt-bar[data-drop] .prompt-bar__menu {
+  top: calc(100% + 4px);
+  bottom: auto;
+  transform-origin: top center;
+}
+
+.prompt-bar[data-collapsed] .prompt-bar__menu[data-kind='model'],
+.prompt-bar[data-collapsed] .prompt-bar__menu[data-kind='audio'],
+.prompt-bar[data-drop] .prompt-bar__menu[data-kind='model'],
+.prompt-bar[data-drop] .prompt-bar__menu[data-kind='audio'] {
+  transform-origin: top left;
+}
+
+.prompt-bar__menu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@keyframes prompt-bar-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+
+.prompt-bar__glow {
+  position: absolute;
+  right: 4px;
+  left: 4px;
+  border-radius: 8px;
+  background: var(--pb-hover);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    top 220ms var(--pb-ease-out),
+    height 220ms var(--pb-ease-out),
+    opacity 150ms ease;
+}
+
+.prompt-bar__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 36px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.prompt-bar__row-icon {
+  display: inline-flex;
+  flex: none;
+  justify-content: center;
+  width: 20px;
+  color: color-mix(in srgb, var(--pb-ink) 70%, transparent);
+}
+
+.prompt-bar__row-name {
+  flex: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.prompt-bar__row-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pb-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.prompt-bar__row-tag {
+  flex: none;
+  margin-left: auto;
+  color: var(--pb-muted);
+  font-size: 11px;
+}
+
+.prompt-bar__row-check {
+  display: inline-flex;
+  flex: none;
+  justify-content: center;
+  width: 16px;
+  opacity: 0;
+}
+
+.prompt-bar__row-check[data-on] {
+  opacity: 1;
+}
+
+.prompt-bar__empty {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 8px;
+  color: var(--pb-muted);
+  font-size: 12px;
+}
+
+/* Submenú de idioma de doblaje: misma factura y animación que el menú
+   principal, abierto a la izquierda (o encima en pantallas estrechas). */
+.prompt-bar__submenu {
+  top: 0;
+  right: calc(100% + 6px);
+  bottom: auto;
+  left: auto;
+  z-index: 3;
+  width: 190px;
+  max-height: min(52vh, 380px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  transform-origin: top right;
+  animation: prompt-bar-pop 180ms var(--pb-ease-out) both;
+}
+
+.prompt-bar__submenu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.prompt-bar__submenu-label {
+  margin: 4px 8px 5px;
+  color: var(--pb-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.prompt-bar__sub-row {
+  height: 32px;
+}
+
+.prompt-bar[data-collapsed] .prompt-bar__submenu,
+.prompt-bar[data-drop] .prompt-bar__submenu {
+  top: 0;
+  right: calc(100% + 6px);
+  bottom: auto;
+  left: auto;
+  transform-origin: top right;
+}
+
+@media (max-width: 720px) {
+  .prompt-bar__submenu,
+  .prompt-bar[data-collapsed] .prompt-bar__submenu,
+  .prompt-bar[data-drop] .prompt-bar__submenu {
+    top: auto;
+    right: 0;
+    bottom: calc(100% + 6px);
+    left: 0;
+    width: auto;
+    transform-origin: bottom center;
+  }
+}
+
+/* Field ------------------------------------------------------------------ */
+.prompt-bar__field {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--pb-radius);
+  background: var(--pb-bg);
+  box-shadow:
+    inset 0 0 0 1px var(--pb-rim),
+    inset 0 1px 0 var(--pb-rim-top),
+    var(--pb-frost-shadow);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  cursor: text;
+  transition:
+    gap 320ms var(--pb-ease-out),
+    box-shadow 400ms ease;
+}
+
+/* Gloss: the tile gradient from ChromaGrid, so the bar no longer reads flat. */
+.prompt-bar__field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.075) 0%,
+    rgba(255, 255, 255, 0) 46%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+  pointer-events: none;
+}
+
+.prompt-bar__field::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    140% 120% at 0% 100%,
+    color-mix(in srgb, var(--pb-spark) 26%, transparent),
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.prompt-bar__field[data-max]::before {
+  opacity: 1;
+}
+
+/* ChromaGrid-style spotlight that follows the cursor across the bar. */
+.prompt-bar__spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    220px circle at var(--pb-mx) var(--pb-my),
+    color-mix(in srgb, var(--pb-spark) 20%, transparent),
+    color-mix(in srgb, var(--pb-spark) 7%, transparent) 46%,
+    transparent 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 420ms ease;
+}
+
+.prompt-bar:hover .prompt-bar__spot {
+  opacity: 1;
+}
+
+.prompt-bar:focus-within .prompt-bar__field {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--pb-spark) 34%, var(--pb-rim)),
+    inset 0 1px 0 var(--pb-rim-top),
+    var(--pb-frost-shadow);
+}
+
+.prompt-bar__sparks {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.prompt-bar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.prompt-bar__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 4px 0 8px;
+  border-radius: 8px;
+  background: var(--pb-hover);
+  font-size: 12px;
+  animation: prompt-bar-pop 200ms var(--pb-ease-out) both;
+}
+
+.prompt-bar__chip-name {
+  max-width: 144px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.prompt-bar__chip-x {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  outline: none;
+  transition:
+    opacity 120ms ease,
+    background-color 120ms ease;
+}
+
+.prompt-bar__chip-x:hover {
+  background: color-mix(in srgb, var(--pb-ink) 10%, transparent);
+  opacity: 1;
+}
+
+.prompt-bar__input {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  resize: none;
+  outline: none;
+  overflow-wrap: anywhere;
+}
+
+.prompt-bar__input::placeholder {
+  color: color-mix(in srgb, var(--pb-ink) 45%, transparent);
+}
+
+/* El foco ya se ve en el campo: el anillo del textarea se leia como un
+   rectangulo metido dentro de la barra. */
+.prompt-bar__input:focus,
+.prompt-bar__input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (pointer: coarse) {
+  .prompt-bar__input {
+    font-size: 16px;
+  }
+}
+
+/* Toolbar ---------------------------------------------------------------- */
+.prompt-bar__tools {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 340ms var(--pb-ease-out),
+    opacity 220ms ease;
+}
+
+.prompt-bar__tools-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.prompt-bar__tools[data-open='false'] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.prompt-bar[data-tools='off'] .prompt-bar__field {
+  gap: 0;
+}
+
+.prompt-bar__bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.prompt-bar__spacer {
+  flex: 1 1 auto;
+}
+
+.prompt-bar__tool,
+.prompt-bar__pick,
+.prompt-bar__send {
+  flex: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.prompt-bar__tool {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: color-mix(in srgb, var(--pb-ink) 60%, transparent);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    transform 160ms var(--pb-ease-out);
+}
+
+.prompt-bar__tool:active {
+  transform: scale(0.94);
+}
+
+.prompt-bar__pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: transparent;
+  color: color-mix(in srgb, var(--pb-ink) 70%, transparent);
+  font-size: 12px;
+  font-weight: 500;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.prompt-bar__tool[data-on],
+.prompt-bar__pick[data-on] {
+  background: var(--pb-hover);
+  color: var(--pb-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .prompt-bar__tool:hover,
+  .prompt-bar__pick:hover {
+    background: var(--pb-hover);
+    color: var(--pb-ink);
+  }
+}
+
+.prompt-bar__pick[data-max] {
+  color: var(--pb-spark);
+}
+
+.prompt-bar__eq {
+  display: flex;
+  align-items: center;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.prompt-bar__eq i {
+  display: block;
+  width: 2.5px;
+  height: 100%;
+  border-radius: 999px;
+  background: currentColor;
+  transform-origin: center;
+  animation: prompt-bar-eq 900ms ease-in-out infinite;
+}
+
+.prompt-bar__eq i:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.prompt-bar__eq i:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes prompt-bar-eq {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.prompt-bar__send {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--pb-ink) 12%, var(--pb-bg));
+  color: color-mix(in srgb, var(--pb-ink) 55%, var(--pb-bg));
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 160ms var(--pb-ease-out);
+}
+
+.prompt-bar__send:disabled {
+  cursor: default;
+}
+
+.prompt-bar__send[data-armed] {
+  background: var(--pb-ink);
+  color: var(--pb-bg);
+}
+
+.prompt-bar__send[data-pressed] {
+  transform: scale(var(--pb-press));
+}
+
+.prompt-bar__glyph {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-bar__menu,
+  .prompt-bar__chip {
+    animation: none;
+  }
+
+  .prompt-bar,
+  .prompt-bar__field,
+  .prompt-bar__tools,
+  .prompt-bar__glow {
+    transition: none;
+  }
+
+  .prompt-bar__tool:active,
+  .prompt-bar__send[data-pressed] {
+    transform: none;
+  }
+}

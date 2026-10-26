@@ -1,0 +1,3 @@
+Contact: mailto:contact@kinora.com.co
+Preferred-Languages: es, en
+Canonical: https://kinora.com.co/.well-known/security.txt
