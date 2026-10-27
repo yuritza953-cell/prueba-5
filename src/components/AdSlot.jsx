@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { injectAdScript, useAdConsent, useMediaQuery } from '../lib/ads';
+import { AD_REFRESH_MS, injectAdScript, useAdConsent, useMediaQuery } from '../lib/ads';
 import './Ads.css';
 
 /**
- * Contenedor de un banner publicitario.
- *
- * Se monta colapsado (alto 0) y se expande solo cuando la red inserta una
- * creatividad con tamaño real. Si no hay anuncio —bloqueador, falta de
- * inventario o consentimiento rechazado— no reserva espacio ni mueve el
- * contenido.
+ * Contenedor de banner publicitario integrado al diseño Kinora.
+ * - Panel glass con etiqueta "Publicidad"
+ * - Se muestra sin exigir cookies
+ * - Reinyecta el tag periódicamente para impresiones recurrentes
  */
 export default function AdSlot({
   src,
@@ -16,15 +14,24 @@ export default function AdSlot({
   media = '',
   delay = 0,
   enabled = true,
-  label = 'Publicidad',
+  label = '',
   className = '',
+  refreshMs = AD_REFRESH_MS,
   onFillChange
 }) {
-  const allowed = useAdConsent();
+  const allowed = useAdConsent(); // always true
   const matches = useMediaQuery(media);
   const hostRef = useRef(null);
   const filledRef = useRef(false);
   const [filled, setFilled] = useState(false);
+  const [cycle, setCycle] = useState(0);
+
+  useEffect(() => {
+    if (!enabled || !allowed || !src || (media && !matches)) return undefined;
+    if (!refreshMs || refreshMs < 15000) return undefined;
+    const id = window.setInterval(() => setCycle(c => c + 1), refreshMs);
+    return () => window.clearInterval(id);
+  }, [enabled, allowed, src, media, matches, refreshMs]);
 
   useEffect(() => {
     if (!enabled || !allowed || !src || (media && !matches)) return undefined;
@@ -48,7 +55,8 @@ export default function AdSlot({
       if (disposed) return;
       const unit = [...host.children].find(node => node.tagName !== 'SCRIPT');
       if (!unit) {
-        setFill(false);
+        // scripts only — still consider "filled" to keep panel after first paint
+        if (host.querySelector('iframe, img, ins')) setFill(true);
         return;
       }
       const rect = unit.getBoundingClientRect();
@@ -75,8 +83,6 @@ export default function AdSlot({
     if (delay > 0) timer = window.setTimeout(mount, delay);
     else mount();
 
-    // Algunos tags cambian el tamaño del iframe sin mutar el DOM: una lectura
-    // periódica durante el primer minuto evita quedar con el hueco a cero.
     let ticks = 0;
     interval = window.setInterval(() => {
       ticks += 1;
@@ -90,21 +96,21 @@ export default function AdSlot({
       window.clearInterval(interval);
       mutation?.disconnect();
       resize?.disconnect();
-      host.replaceChildren();
     };
-  }, [allowed, matches, enabled, src, media, delay, onFillChange]);
+  }, [enabled, allowed, src, media, matches, delay, cycle, onFillChange]);
 
   if (!enabled || !allowed || (media && !matches)) return null;
 
   return (
-    <div
-      className={`adslot adslot--${format}${filled ? ' is-filled' : ''}${className ? ` ${className}` : ''}`}
-      data-ad-state={filled ? 'filled' : 'empty'}
-      role="complementary"
+    <aside
+      className={`adslot adslot--panel adslot--${format}${filled ? ' is-filled' : ''}${className ? ` ${className}` : ''}`}
+      data-format={format}
       aria-label={label}
-      aria-hidden={filled ? undefined : true}
     >
-      <div ref={hostRef} className="adslot__host" />
-    </div>
+      <div className="adslot__chrome">
+        <span className="adslot__badge">{label}</span>
+      </div>
+      <div className="adslot__body" ref={hostRef} />
+    </aside>
   );
 }

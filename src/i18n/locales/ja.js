@@ -3,6 +3,25 @@ export default {
   name: '日本語',
   dir: 'ltr',
   nav: { home: 'ホーム', list: 'マイリスト', search: '検索', back: '戻る', surprise: 'おまかせ' },
+  auth: {
+    login: 'ログイン',
+    account: 'アカウント',
+    title: 'Kinora にログイン',
+    subtitle: 'Google または Discord アカウントで、リストを保存して続きから視聴できます。',
+    continueGoogle: 'Google で続行',
+    continueDiscord: 'Discord で続行',
+    connecting: '接続中…',
+    privacy: 'お名前とプロフィール画像のみを取得します。Google の場合はメールアドレスも受け取ります。',
+    connectedWith: '{provider} でログイン中',
+    viewList: 'マイリストを見る',
+    logout: 'ログアウト',
+    errors: {
+      config: 'このホストでは {provider} が設定されていません。AUTH_SETUP.md を確認してください。',
+      popup: 'ブラウザがログインウィンドウをブロックしました。ポップアップを許可して、もう一度お試しください。',
+      cancelled: 'ログインがキャンセルされました。',
+      generic: 'ログインできませんでした。もう一度お試しください。'
+    }
+  },
   home: {
     badge: '映画・ドラマ・アニメ',
     title: '今日は何を観ますか？',

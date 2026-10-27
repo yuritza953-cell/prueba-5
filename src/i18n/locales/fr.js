@@ -3,6 +3,25 @@ export default {
   name: 'Français',
   dir: 'ltr',
   nav: { home: 'Accueil', list: 'Ma liste', search: 'Rechercher', back: 'Retour', surprise: 'Surprends-moi' },
+  auth: {
+    login: 'Se connecter',
+    account: 'Votre compte',
+    title: 'Se connecter à Kinora',
+    subtitle: 'Enregistrez votre liste et reprenez où vous en étiez avec votre compte Google ou Discord.',
+    continueGoogle: 'Continuer avec Google',
+    continueDiscord: 'Continuer avec Discord',
+    connecting: 'Connexion…',
+    privacy: 'Nous demandons uniquement votre nom et votre photo de profil. Avec Google, nous recevons aussi votre adresse e-mail.',
+    connectedWith: 'Connecté avec {provider}',
+    viewList: 'Voir ma liste',
+    logout: 'Se déconnecter',
+    errors: {
+      config: '{provider} n’est pas configuré sur cet hôte. Consultez AUTH_SETUP.md.',
+      popup: 'Le navigateur a bloqué la fenêtre de connexion. Autorisez les pop-ups et réessayez.',
+      cancelled: 'Connexion annulée.',
+      generic: 'Impossible de se connecter. Veuillez réessayer.'
+    }
+  },
   home: {
     badge: 'Films, séries et anime',
     title: 'Que regardez-vous aujourd’hui ?',

@@ -947,3 +947,20 @@
     height: 64px;
   }
 }
+
+/* Preroll más grande (10 s) */
+.stream-player__ad-card {
+  max-width: min(440px, 92vw) !important;
+  width: min(440px, 92vw);
+  padding: 18px 18px 16px !important;
+}
+.stream-player__ad-slot {
+  min-height: 240px !important;
+  border-radius: 14px;
+}
+.stream-player__ad-video,
+.stream-player__ad-media {
+  min-height: 220px;
+  width: 100%;
+  border-radius: 12px;
+}

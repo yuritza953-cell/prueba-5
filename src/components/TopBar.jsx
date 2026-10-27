@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import { Bookmark, ChevronLeft, Shuffle } from 'lucide-react';
+import { Bookmark, ChevronLeft } from 'lucide-react';
+import AccountButton from './AccountButton';
 import AdSlot from './AdSlot';
 import PromptBar from './PromptBar';
 import { AD_SLOTS } from '../lib/ads';
@@ -14,8 +15,6 @@ export default function TopBar({
   busy,
   onList,
   savedCount = 0,
-  onShuffle,
-  canShuffle = false,
   dubLang,
   onDubLangChange,
   showMobileAd = false
@@ -84,16 +83,7 @@ export default function TopBar({
           <Bookmark size={18} />
           {savedCount > 0 ? <span className="topbar__count">{savedCount > 9 ? '9+' : savedCount}</span> : null}
         </button>
-        <button
-          type="button"
-          className="topbar__icon topbar__icon--accent"
-          onClick={onShuffle}
-          aria-label={t('nav.surprise')}
-          title={t('nav.surprise')}
-          disabled={!canShuffle}
-        >
-          <Shuffle size={18} />
-        </button>
+        <AccountButton onList={onList} />
       </div>
     </header>
   );

@@ -3,6 +3,25 @@ export default {
   name: 'Русский',
   dir: 'ltr',
   nav: { home: 'Главная', list: 'Мой список', search: 'Поиск', back: 'Назад', surprise: 'Удиви меня' },
+  auth: {
+    login: 'Войти',
+    account: 'Ваш аккаунт',
+    title: 'Вход в Kinora',
+    subtitle: 'Сохраните свой список и продолжите с того места, где остановились, с аккаунтом Google или Discord.',
+    continueGoogle: 'Продолжить с Google',
+    continueDiscord: 'Продолжить с Discord',
+    connecting: 'Подключение…',
+    privacy: 'Мы запрашиваем только имя и фото профиля. При входе через Google мы также получаем вашу электронную почту.',
+    connectedWith: 'Вход выполнен через {provider}',
+    viewList: 'Посмотреть мой список',
+    logout: 'Выйти',
+    errors: {
+      config: '{provider} не настроен на этом хосте. См. AUTH_SETUP.md.',
+      popup: 'Браузер заблокировал окно входа. Разрешите всплывающие окна и попробуйте снова.',
+      cancelled: 'Вход отменён.',
+      generic: 'Не удалось войти. Попробуйте ещё раз.'
+    }
+  },
   home: {
     badge: 'Фильмы, сериалы и аниме',
     title: 'Что смотрим сегодня?',

@@ -17,20 +17,55 @@ export const AD_SLOTS = Object.freeze({
 export const PREROLL_VAST = 'https://windy-imagination.com/dcm.Fjzed_GUNDvAZJGYUc/Eetmj9XuvZ/UklsksPxTPcN1jNrTNIcyINNzUcKtoN/z-Uc1MMejGI/4fM_Qi';
 
 /** ¿El usuario autorizó publicidad no esencial? Reacciona al aviso de cookies. */
+/**
+ * La publicidad contextual / de red se muestra siempre (sin depender del
+ * banner de cookies). El consentimiento solo afecta personalización extra
+ * si la red lo soporta; el inventario base no se bloquea.
+ */
 export function useAdConsent() {
+  return true;
+}
+
+/** Preferencia de personalización (cookies advertising) — informativo. */
+export function useAdPersonalization() {
   const [allowed, setAllowed] = useState(() => {
     if (typeof window === 'undefined') return false;
     return canShowPersonalizedAds();
   });
-
   useEffect(() => {
     const sync = () => setAllowed(canShowPersonalizedAds());
     window.addEventListener('kinora:consent', sync);
     return () => window.removeEventListener('kinora:consent', sync);
   }, []);
-
   return allowed;
 }
+
+/** Tag nativo 160×300 (fichas de catálogo). */
+export const NATIVE_GRID_AD = Object.freeze({
+  key: '4275c68c6ee35a879cd6382f900abf9a',
+  width: 160,
+  height: 300,
+  script: 'https://bancadeltempoidea.org/22/4275c68c6ee35a879cd6382f900abf9a',
+});
+
+export function injectNativeGridAd(host) {
+  if (!host) return;
+  host.replaceChildren();
+  const cfg = document.createElement('script');
+  cfg.textContent = `atOptions = ${JSON.stringify({
+    key: NATIVE_GRID_AD.key,
+    format: 'iframe',
+    height: NATIVE_GRID_AD.height,
+    width: NATIVE_GRID_AD.width,
+    params: {},
+  })};`;
+  const remote = document.createElement('script');
+  remote.src = NATIVE_GRID_AD.script;
+  remote.async = true;
+  host.appendChild(cfg);
+  host.appendChild(remote);
+}
+
 
 /** Media query reactiva; segura en el primer render (SSR / build). */
 export function useMediaQuery(query = '') {
@@ -127,3 +162,7 @@ export async function loadVastPreroll({ signal, viewportWidth = 0 } = {}) {
     duration: (ad.querySelector('Duration')?.textContent || '').trim()
   };
 }
+
+
+/** Intervalo por defecto para reinyectar tags (recurrencia de impresiones). */
+export const AD_REFRESH_MS = 90_000;

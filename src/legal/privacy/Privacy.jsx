@@ -179,7 +179,7 @@ const SECTIONS = [
     id: 'profiling',
     title: 'Advertising, profiling and automated decisions',
     body: [
-      'Advertising may be based on interests inferred by third-party advertisers from your browsing, according to the cookies you authorise. As a general rule, Kinora does not make automated decisions producing significant legal effects, beyond the technical operation of the service and basic personalisation of the interface or third-party-managed ads. Non-personalised advertising may be displayed without non-essential cookies, depending on provider settings.'
+      'Kinora displays third-party advertising as part of the free service. Contextual or network ads may load without accepting non-essential cookies; personalised advertising based on interests may still depend on the choices recorded in the cookie notice when the network supports it. As a general rule, Kinora does not make automated decisions producing significant legal effects beyond the technical operation of the service. You may use browser controls or ad blockers, accepting possible layout or revenue-related limitations.'
     ]
   },
   {
@@ -240,7 +240,8 @@ const JURISDICTIONS = [
 const VERSIONS = [
   ['1.0', '10/23/2026', 'Initial version'],
   ['1.1', '10/23/2026', 'Structural and cookie adjustments'],
-  ['2.0', '10/24/2026', 'Operator anonymity model; rewritten cookies section (inventory, granular consent, withdrawal, privacy signals, Consent Mode); proxy effect; incident, retention, LatAm jurisdiction and EU representative sections; Annexes I–IV']
+  ['2.0', '10/24/2026', 'Operator anonymity model; rewritten cookies section (inventory, granular consent, withdrawal, privacy signals, Consent Mode); proxy effect; incident, retention, LatAm jurisdiction and EU representative sections; Annexes I–IV'],
+  ['2.1', '10/26/2026', 'Clarified that contextual/network advertising may display without non-essential cookie consent; personalisation remains optional']
 ];
 const AnnexTable = ({ title, head, rows }) => (
   <section className="terms__section privacy__annex">

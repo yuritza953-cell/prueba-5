@@ -97,12 +97,16 @@ export default function App() {
 
   const [related, setRelated] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState(false);
+  const [titleShelves, setTitleShelves] = useState([]);
+  const [shelvesLoading, setShelvesLoading] = useState(false);
 
   const searchAbort = useRef(null);
   const detailToken = useRef(0);
   const relatedToken = useRef(0);
   const detailCache = useRef(new Map());
   const relatedCache = useRef(new Map());
+  const shelvesCache = useRef(new Map());
+  const shelvesToken = useRef(0);
 
   useEffect(() => {
     routeRef.current = route;
@@ -192,6 +196,34 @@ export default function App() {
 
   // La URL acompaña a la pantalla sin recargar: pushState mantiene vivo el flujo
   // (ficha, reproductor, vuelta atrás) y un refresco cae en la misma vista.
+
+  useEffect(() => {
+    if (!activeItem) return undefined;
+    const key = cacheKey(activeItem);
+    const token = ++shelvesToken.current;
+    const cached = shelvesCache.current.get(key);
+    if (cached) {
+      setTitleShelves(cached);
+      setShelvesLoading(false);
+      return undefined;
+    }
+    setShelvesLoading(true);
+    api('/api/title_shelves', { id: activeItem.id, media: activeItem.media || 'movie', audio: audioFilter(activeItem) })
+      .then(data => {
+        if (token !== shelvesToken.current) return;
+        const shelves = data?.shelves || [];
+        shelvesCache.current.set(key, shelves);
+        setTitleShelves(shelves);
+      })
+      .catch(() => {
+        if (token === shelvesToken.current) setTitleShelves([]);
+      })
+      .finally(() => {
+        if (token === shelvesToken.current) setShelvesLoading(false);
+      });
+    return undefined;
+  }, [activeItem, dubLang]);
+
   const writeUrl = useCallback((next, options = {}) => {
     if (typeof window === 'undefined') return;
     if (next?.name === 'title' && !next.item) return;
@@ -612,8 +644,6 @@ export default function App() {
           busy={busy}
           onList={openList}
           savedCount={saved.length}
-          onShuffle={shuffle}
-          canShuffle={shufflePool.length > 0}
           dubLang={dubLang}
           showMobileAd={route.name !== 'watch'}
           onDubLangChange={code => {
@@ -725,6 +755,8 @@ export default function App() {
           error={detailError}
           related={related}
           relatedLoading={relatedLoading}
+          shelves={titleShelves}
+          shelvesLoading={shelvesLoading}
           saved={isSaved(route.item)}
           onToggleSaved={toggleSaved}
           onPlay={openWatch}
@@ -751,8 +783,8 @@ export default function App() {
         />
       ) : null}
 
-      {/* Formato in-page push: se carga tarde y nunca sobre el reproductor. */}
-      <InPagePush src={AD_SLOTS.inPagePush} enabled={route.name !== 'watch'} />
+      {/* Formato in-page push: nunca sobre el reproductor ni en la portada. */}
+      <InPagePush src={AD_SLOTS.inPagePush} enabled={route.name !== 'watch' && route.name !== 'home'} />
 
       <CookieBanner />
       <Footer onHome={openHome} onList={openList} onBrowse={openBrowse} onShuffle={shuffle} />

@@ -3,6 +3,25 @@ export default {
   name: '中文',
   dir: 'ltr',
   nav: { home: '首页', list: '我的列表', search: '搜索', back: '返回', surprise: '随便看看' },
+  auth: {
+    login: '登录',
+    account: '你的账户',
+    title: '登录 Kinora',
+    subtitle: '使用 Google 或 Discord 账户保存你的列表，并从上次看到的地方继续。',
+    continueGoogle: '使用 Google 继续',
+    continueDiscord: '使用 Discord 继续',
+    connecting: '正在连接…',
+    privacy: '我们只会获取你的姓名和个人头像。使用 Google 时，我们还会收到你的电子邮箱。',
+    connectedWith: '已通过 {provider} 登录',
+    viewList: '查看我的列表',
+    logout: '退出登录',
+    errors: {
+      config: '此主机尚未配置 {provider}。请查看 AUTH_SETUP.md。',
+      popup: '浏览器拦截了登录窗口。请允许弹出窗口后重试。',
+      cancelled: '已取消登录。',
+      generic: '无法登录。请重试。'
+    }
+  },
   home: {
     badge: '电影、剧集和动漫',
     title: '今天想看点什么？',

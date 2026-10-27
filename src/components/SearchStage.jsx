@@ -1,4 +1,5 @@
 import { Bookmark, Shuffle, Sparkles } from 'lucide-react';
+import AccountButton from './AccountButton';
 import GradientASCII from './GradientASCII';
 import PromptBar from './PromptBar';
 import SplitText from './SplitText';
@@ -44,6 +45,10 @@ export default function SearchStage({
         </div>
         <div className="stage__stars" />
         <div className="stage__glow" />
+      </div>
+
+      <div className="stage__account">
+        <AccountButton onList={onList} />
       </div>
 
       <div className="stage__inner">

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Info, Loader2, Plus, Star } from 'lucide-react';
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Download, Info, Loader2, Plus, Star } from 'lucide-react';
 import AnimatedList from './AnimatedList';
 import AdSlot from './AdSlot';
 import PeekRating from './PeekRating';
@@ -251,6 +251,38 @@ export default function WatchView({
                 onAudioLangChange={code => {
                   setAudioLang(normalizeAudioLang(code));
                 }}
+                onReResolve={() => {
+                  // Bust cache y vuelve a pedir streams sin salir de la ficha
+                  const id = detail?.id ?? item?.id;
+                  if (!id) return Promise.resolve();
+                  const params = {
+                    id,
+                    media: isSeries ? 'tv' : (item?.media || 'movie'),
+                    lang: audioLang,
+                    nocache: '1',
+                  };
+                  if (item?.imdb_id || detail?.imdb_id) {
+                    params.imdb = item?.imdb_id || detail?.imdb_id;
+                  }
+                  if (isSeries && season != null && episode?.number != null) {
+                    params.season = season;
+                    params.episode = episode.number;
+                  }
+                  setStreamLoading(true);
+                  return api('/api/stream', params)
+                    .then(data => {
+                      setStreamData(data);
+                      if (!data?.ok) {
+                        setStreamError(t('player.unavailable'));
+                      } else {
+                        setStreamError('');
+                      }
+                    })
+                    .catch(err => {
+                      setStreamError(err?.message || t('player.unavailable'));
+                    })
+                    .finally(() => setStreamLoading(false));
+                }}
               />
             </div>
 
@@ -310,6 +342,16 @@ export default function WatchView({
                 <button type="button" className="watch__action" onClick={() => onOpenTitle?.(item)}>
                   <Info size={16} />
                   {t('watch.details')}
+                </button>
+                <button
+                  type="button"
+                  className="watch__action watch__action--download"
+                  aria-label={t('watch.download')}
+                  title={t('watch.download')}
+                  disabled
+                >
+                  <Download size={16} />
+                  {t('watch.download')}
                 </button>
               </div>
             </header>
@@ -375,23 +417,23 @@ export default function WatchView({
             {/* Banners justo arriba de la tabla. Si la red no entrega nada,
                 el bloque queda a cero y la tabla no se mueve. */}
             <div className="watch__ads">
-              <AdSlot
+              <AdSlot refreshMs={30000}
                 src={AD_SLOTS.bannerPc}
                 format="rect"
                 media="(min-width: 901px)"
-                label={t('player.ad')}
+                label=""
               />
-              <AdSlot
+              <AdSlot refreshMs={30000}
                 src={AD_SLOTS.videoMultitag}
                 format="video"
                 media="(min-width: 901px)"
-                label={t('player.ad')}
+                label=""
               />
-              <AdSlot
+              <AdSlot refreshMs={30000}
                 src={AD_SLOTS.mobile}
                 format="mobile"
                 media="(max-width: 900px)"
-                label={t('player.ad')}
+                label=""
               />
             </div>
             {isSeries ? (

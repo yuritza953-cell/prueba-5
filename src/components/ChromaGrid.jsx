@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef } from 'react';
+import { injectNativeGridAd } from '../lib/ads';
 import './ChromaGrid.css';
 
 const THEMES = {
@@ -137,12 +138,27 @@ export const ChromaGrid = ({
   frame = false,
   theme = 'dark',
   onSelect,
-  className = ''
+  className = '',
+  /** Inserta 1 ficha de publicidad cada N títulos (0 = off). */
+  adEvery = 10,
 }) => {
   const rootRef = useRef(null);
   const settingsRef = useRef(null);
   const placeRef = useRef(null);
-  const data = items?.length ? items : DEFAULT_ITEMS;
+  const base = items?.length ? items : DEFAULT_ITEMS;
+  const data = (() => {
+    if (!adEvery || adEvery < 1) return base;
+    const out = [];
+    let mediaCount = 0;
+    for (const item of base) {
+      out.push(item);
+      mediaCount += 1;
+      if (mediaCount % adEvery === 0) {
+        out.push({ __ad: true, id: `ad-${mediaCount}`, title: 'Publicidad' });
+      }
+    }
+    return out;
+  })();
   settingsRef.current = { damping, fadeOut, spotlight: reveal !== 'card' };
 
   useEffect(() => {
@@ -261,6 +277,29 @@ export const ChromaGrid = ({
     >
       <div className="chroma-grid-inner">
         {data.map((item, index) => {
+          if (item?.__ad) {
+            return (
+              <article
+                key={`ad-${index}`}
+                className="chroma-card chroma-card--ad"
+                data-chroma-area=""
+                data-ad="true"
+                aria-label="Publicidad"
+              >
+                <span className="chroma-ad-badge">Publicidad</span>
+                <div
+                  className="chroma-ad-host"
+                  ref={el => {
+                    if (el && !el.dataset.mounted) {
+                      el.dataset.mounted = '1';
+                      injectNativeGridAd(el);
+                    }
+                  }}
+                />
+                <span className="chroma-ad-caption">Anuncio · No es un título de Kinora</span>
+              </article>
+            );
+          }
           const accent = item.accent ?? item.borderColor ?? '#ffffff';
           const key = `${item.title}-${index}`;
           const cardStyle = { '--chroma-accent': accent };

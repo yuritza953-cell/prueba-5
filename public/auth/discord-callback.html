@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Kinora · Discord</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #050f33;
+        color: #eaf2ff;
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        text-align: center;
+      }
+
+      main {
+        padding: 24px;
+      }
+
+      .ring {
+        width: 34px;
+        height: 34px;
+        margin: 0 auto 16px;
+        border: 3px solid rgba(140, 190, 255, 0.22);
+        border-top-color: #7cc4ff;
+        border-radius: 50%;
+        animation: spin 700ms linear infinite;
+      }
+
+      p {
+        margin: 0;
+        color: #c6d8f6;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="ring" aria-hidden="true"></div>
+      <p id="status">Conectando con Discord…</p>
+    </main>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.hash.slice(1));
+        var payload = {
+          type: 'kinora:discord-oauth',
+          accessToken: params.get('access_token') || '',
+          state: params.get('state') || '',
+          iss: params.get('iss') || '',
+          error: params.get('error') || '',
+          errorDescription: params.get('error_description') || ''
+        };
+
+        // El token nunca se queda en el historial de esta ventana.
+        try {
+          window.history.replaceState(null, '', window.location.pathname);
+        } catch (error) {
+          /* historial bloqueado */
+        }
+
+        if (window.opener && window.opener !== window) {
+          window.opener.postMessage(payload, window.location.origin);
+          window.setTimeout(function () {
+            window.close();
+          }, 80);
+          return;
+        }
+
+        document.getElementById('status').textContent = payload.error
+          ? 'No se pudo completar el inicio de sesión. Vuelve a Kinora e inténtalo de nuevo.'
+          : 'Inicio de sesión completado. Puedes cerrar esta ventana y volver a Kinora.';
+      })();
+    </script>
+  </body>
+</html>

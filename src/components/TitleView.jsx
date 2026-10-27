@@ -19,6 +19,8 @@ export default function TitleView({
   error = '',
   related = [],
   relatedLoading = false,
+  shelves = [],
+  shelvesLoading = false,
   saved = false,
   onToggleSaved,
   onPlay,
@@ -183,47 +185,29 @@ export default function TitleView({
             </section>
           ) : null}
         </div>
-
-        <aside className="titleview__aside">
-          <h2>{t('title.details')}</h2>
-          <dl>
-            <div>
-              <dt>{t('title.type')}</dt>
-              <dd>{kindText}</dd>
-            </div>
-            <div>
-              <dt>{t('title.year')}</dt>
-              <dd>{detail?.year || item?.year || '—'}</dd>
-            </div>
-            <div>
-              <dt>{isSeries ? t('title.seasons') : t('title.runtime')}</dt>
-              <dd>{isSeries ? seasons.length || '—' : detail?.runtime ? `${detail.runtime} min` : '—'}</dd>
-            </div>
-            <div>
-              <dt>{t('title.score')}</dt>
-              <dd>{rating ? `${rating.toFixed(1)} / 10` : '—'}</dd>
-            </div>
-            <div>
-              <dt>{t('title.audio')}</dt>
-              <dd>{audios.length ? audios.map(audio => t(`audio.${audio}`)).join(' · ') : '—'}</dd>
-            </div>
-            <div>
-              <dt>{t('title.genres')}</dt>
-              <dd>{genres.length ? genres.join(', ') : '—'}</dd>
-            </div>
-          </dl>
-          {detail?.url ? (
-            <a className="titleview__link" href={detail.url} target="_blank" rel="noopener noreferrer">
-              {t('title.tmdb')}
-              <ExternalLink size={14} />
-            </a>
-          ) : null}
-        </aside>
       </div>
 
       {related.length || relatedLoading ? (
         <div className="shell titleview__related">
-          <MediaRow title={t('title.related')} items={related} loading={relatedLoading && !related.length} onOpen={onOpen} limit={8} />
+          <MediaRow title={t('title.related')} items={related} loading={relatedLoading && !related.length} onOpen={onOpen} limit={10} />
+        </div>
+      ) : null}
+
+      {(shelves.length || shelvesLoading) ? (
+        <div className="shell titleview__shelves">
+          {shelvesLoading && !shelves.length ? (
+            <MediaRow title="…" items={[]} loading onOpen={onOpen} limit={8} />
+          ) : (
+            shelves.map(row => (
+              <MediaRow
+                key={row.key || row.title}
+                title={row.title}
+                items={row.items || []}
+                onOpen={onOpen}
+                limit={12}
+              />
+            ))
+          )}
         </div>
       ) : null}
     </main>

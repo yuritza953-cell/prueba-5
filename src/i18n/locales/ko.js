@@ -3,6 +3,25 @@ export default {
   name: '한국어',
   dir: 'ltr',
   nav: { home: '홈', list: '내 목록', search: '검색', back: '뒤로', surprise: '추천해 줘' },
+  auth: {
+    login: '로그인',
+    account: '내 계정',
+    title: 'Kinora에 로그인',
+    subtitle: 'Google 또는 Discord 계정으로 목록을 저장하고 보던 곳에서 이어서 시청하세요.',
+    continueGoogle: 'Google로 계속하기',
+    continueDiscord: 'Discord로 계속하기',
+    connecting: '연결 중…',
+    privacy: '이름과 프로필 사진만 요청합니다. Google의 경우 이메일도 함께 받습니다.',
+    connectedWith: '{provider}로 로그인됨',
+    viewList: '내 목록 보기',
+    logout: '로그아웃',
+    errors: {
+      config: '이 호스트에는 {provider}가 설정되어 있지 않습니다. AUTH_SETUP.md를 확인하세요.',
+      popup: '브라우저가 로그인 창을 차단했습니다. 팝업을 허용한 후 다시 시도하세요.',
+      cancelled: '로그인이 취소되었습니다.',
+      generic: '로그인할 수 없습니다. 다시 시도해 주세요.'
+    }
+  },
   home: {
     badge: '영화, 시리즈, 애니메이션',
     title: '오늘은 무엇을 볼까요?',

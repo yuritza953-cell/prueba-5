@@ -3,6 +3,25 @@ export default {
   name: 'Türkçe',
   dir: 'ltr',
   nav: { home: 'Ana sayfa', list: 'Listem', search: 'Ara', back: 'Geri', surprise: 'Beni şaşırt' },
+  auth: {
+    login: 'Giriş yap',
+    account: 'Hesabın',
+    title: "Kinora'ya giriş yap",
+    subtitle: 'Listeni kaydet ve Google veya Discord hesabınla kaldığın yerden devam et.',
+    continueGoogle: 'Google ile devam et',
+    continueDiscord: 'Discord ile devam et',
+    connecting: 'Bağlanıyor…',
+    privacy: 'Yalnızca adını ve profil fotoğrafını istiyoruz. Google ile e-posta adresini de alırız.',
+    connectedWith: '{provider} ile giriş yapıldı',
+    viewList: 'Listemi görüntüle',
+    logout: 'Çıkış yap',
+    errors: {
+      config: '{provider} bu sunucuda yapılandırılmamış. AUTH_SETUP.md dosyasına bak.',
+      popup: 'Tarayıcı giriş penceresini engelledi. Açılır pencerelere izin verip tekrar dene.',
+      cancelled: 'Giriş iptal edildi.',
+      generic: 'Giriş yapılamadı. Lütfen tekrar dene.'
+    }
+  },
   home: {
     badge: 'Filmler, diziler ve anime',
     title: 'Bugün ne izliyorsun?',

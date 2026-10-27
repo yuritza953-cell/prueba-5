@@ -3,6 +3,25 @@ export default {
   name: 'Bahasa Indonesia',
   dir: 'ltr',
   nav: { home: 'Beranda', list: 'Daftar saya', search: 'Cari', back: 'Kembali', surprise: 'Kejutkan saya' },
+  auth: {
+    login: 'Masuk',
+    account: 'Akun kamu',
+    title: 'Masuk ke Kinora',
+    subtitle: 'Simpan daftarmu dan lanjutkan dari tempat terakhir dengan akun Google atau Discord.',
+    continueGoogle: 'Lanjutkan dengan Google',
+    continueDiscord: 'Lanjutkan dengan Discord',
+    connecting: 'Menghubungkan…',
+    privacy: 'Kami hanya meminta nama dan foto profilmu. Dengan Google, kami juga menerima emailmu.',
+    connectedWith: 'Masuk dengan {provider}',
+    viewList: 'Lihat daftar saya',
+    logout: 'Keluar',
+    errors: {
+      config: '{provider} belum dikonfigurasi di host ini. Lihat AUTH_SETUP.md.',
+      popup: 'Browser memblokir jendela masuk. Izinkan pop-up dan coba lagi.',
+      cancelled: 'Proses masuk dibatalkan.',
+      generic: 'Tidak dapat masuk. Silakan coba lagi.'
+    }
+  },
   home: {
     badge: 'Film, serial, dan anime',
     title: 'Mau nonton apa hari ini?',

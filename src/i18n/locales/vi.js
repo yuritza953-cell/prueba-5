@@ -3,6 +3,25 @@ export default {
   name: 'Tiếng Việt',
   dir: 'ltr',
   nav: { home: 'Trang chủ', list: 'Danh sách của tôi', search: 'Tìm kiếm', back: 'Quay lại', surprise: 'Bất ngờ nào' },
+  auth: {
+    login: 'Đăng nhập',
+    account: 'Tài khoản của bạn',
+    title: 'Đăng nhập vào Kinora',
+    subtitle: 'Lưu danh sách của bạn và tiếp tục từ nơi bạn đã dừng với tài khoản Google hoặc Discord.',
+    continueGoogle: 'Tiếp tục với Google',
+    continueDiscord: 'Tiếp tục với Discord',
+    connecting: 'Đang kết nối…',
+    privacy: 'Chúng tôi chỉ yêu cầu tên và ảnh hồ sơ của bạn. Với Google, chúng tôi cũng nhận được email của bạn.',
+    connectedWith: 'Đã đăng nhập bằng {provider}',
+    viewList: 'Xem danh sách của tôi',
+    logout: 'Đăng xuất',
+    errors: {
+      config: '{provider} chưa được cấu hình trên máy chủ này. Xem AUTH_SETUP.md.',
+      popup: 'Trình duyệt đã chặn cửa sổ đăng nhập. Hãy cho phép cửa sổ bật lên và thử lại.',
+      cancelled: 'Đã hủy đăng nhập.',
+      generic: 'Không thể đăng nhập. Vui lòng thử lại.'
+    }
+  },
   home: {
     badge: 'Phim, series và anime',
     title: 'Hôm nay bạn xem gì?',

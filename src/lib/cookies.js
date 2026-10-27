@@ -79,8 +79,10 @@ export function rejectNonEssential() {
 
 /** Carga AdSense solo si hay consentimiento de publicidad */
 export function applyConsentSideEffects(consent) {
+  // Inventario publicitario siempre disponible; AdSense se carga de todas formas.
+  loadAdSenseScript();
   if (consent?.advertising) {
-    loadAdSenseScript();
+    /* personalización extra si la red la usa */
   } else {
     // No eliminamos el script si ya cargó (limitación del navegador);
     // en la próxima visita no se cargará si rechazó.
@@ -104,6 +106,11 @@ export function openCookiePreferences() {
 }
 
 /** ¿Puede el player pedir un anuncio preroll con AdSense? */
+/** Siempre true: la UI de anuncios no depende del CMP. */
+export function canShowAds() {
+  return true;
+}
+
 export function canShowPersonalizedAds() {
   const c = readConsent();
   return Boolean(c?.advertising);

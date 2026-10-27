@@ -3,6 +3,25 @@ export default {
   name: 'Italiano',
   dir: 'ltr',
   nav: { home: 'Home', list: 'La mia lista', search: 'Cerca', back: 'Indietro', surprise: 'Sorprendimi' },
+  auth: {
+    login: 'Accedi',
+    account: 'Il tuo account',
+    title: 'Accedi a Kinora',
+    subtitle: 'Salva la tua lista e riprendi da dove eri rimasto con il tuo account Google o Discord.',
+    continueGoogle: 'Continua con Google',
+    continueDiscord: 'Continua con Discord',
+    connecting: 'Connessione…',
+    privacy: 'Chiediamo solo il nome e la foto del profilo. Con Google riceviamo anche la tua email.',
+    connectedWith: 'Accesso con {provider}',
+    viewList: 'Vedi la mia lista',
+    logout: 'Esci',
+    errors: {
+      config: '{provider} non è configurato su questo host. Consulta AUTH_SETUP.md.',
+      popup: 'Il browser ha bloccato la finestra di accesso. Consenti i pop-up e riprova.',
+      cancelled: 'Accesso annullato.',
+      generic: 'Impossibile accedere. Riprova.'
+    }
+  },
   home: {
     badge: 'Film, serie e anime',
     title: 'Cosa guardi oggi?',

@@ -3,6 +3,25 @@ export default {
   name: 'हिन्दी',
   dir: 'ltr',
   nav: { home: 'होम', list: 'मेरी सूची', search: 'खोजें', back: 'वापस', surprise: 'कुछ भी दिखाएँ' },
+  auth: {
+    login: 'साइन इन करें',
+    account: 'आपका खाता',
+    title: 'Kinora में साइन इन करें',
+    subtitle: 'अपनी सूची सहेजें और अपने Google या Discord खाते से वहीं से जारी रखें जहाँ आपने छोड़ा था।',
+    continueGoogle: 'Google से जारी रखें',
+    continueDiscord: 'Discord से जारी रखें',
+    connecting: 'कनेक्ट हो रहा है…',
+    privacy: 'हम केवल आपका नाम और प्रोफ़ाइल चित्र माँगते हैं। Google के साथ हमें आपका ईमेल भी मिलता है।',
+    connectedWith: '{provider} से साइन इन',
+    viewList: 'मेरी सूची देखें',
+    logout: 'साइन आउट करें',
+    errors: {
+      config: 'इस होस्ट पर {provider} कॉन्फ़िगर नहीं है। AUTH_SETUP.md देखें।',
+      popup: 'ब्राउज़र ने साइन-इन विंडो ब्लॉक कर दी। पॉप-अप की अनुमति दें और फिर कोशिश करें।',
+      cancelled: 'साइन इन रद्द किया गया।',
+      generic: 'साइन इन नहीं हो सका। कृपया फिर कोशिश करें।'
+    }
+  },
   home: {
     badge: 'फ़िल्में, सीरीज़ और ऐनिमे',
     title: 'आज क्या देखें?',

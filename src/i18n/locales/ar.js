@@ -3,6 +3,25 @@ export default {
   name: 'العربية',
   dir: 'rtl',
   nav: { home: 'الرئيسية', list: 'قائمتي', search: 'بحث', back: 'رجوع', surprise: 'فاجئني' },
+  auth: {
+    login: 'تسجيل الدخول',
+    account: 'حسابك',
+    title: 'سجّل الدخول إلى Kinora',
+    subtitle: 'احفظ قائمتك وأكمل من حيث توقفت باستخدام حساب Google أو Discord.',
+    continueGoogle: 'المتابعة باستخدام Google',
+    continueDiscord: 'المتابعة باستخدام Discord',
+    connecting: 'جارٍ الاتصال…',
+    privacy: 'نطلب فقط اسمك وصورة ملفك الشخصي. ومع Google نتلقى بريدك الإلكتروني أيضًا.',
+    connectedWith: 'مسجّل الدخول عبر {provider}',
+    viewList: 'عرض قائمتي',
+    logout: 'تسجيل الخروج',
+    errors: {
+      config: 'لم يتم إعداد {provider} على هذا المضيف. راجع AUTH_SETUP.md.',
+      popup: 'حظر المتصفح نافذة تسجيل الدخول. اسمح بالنوافذ المنبثقة وحاول مجددًا.',
+      cancelled: 'تم إلغاء تسجيل الدخول.',
+      generic: 'تعذّر تسجيل الدخول. حاول مرة أخرى.'
+    }
+  },
   home: {
     badge: 'أفلام ومسلسلات وأنمي',
     title: 'ماذا ستشاهد اليوم؟',

@@ -53,7 +53,7 @@ export default function CookieBanner() {
   };
 
   const onSaveConfig = () => {
-    saveConsent({ analytics, advertising });
+    saveConsent({ analytics, advertising: true }); // inventario siempre activo
     close();
   };
 
@@ -66,7 +66,8 @@ export default function CookieBanner() {
           </h2>
           <p className="ck__text">
             Usamos cookies propias y de terceros, y almacenamiento local, para el funcionamiento del
-            sitio, preferencias y —si lo autorizas— medición y publicidad (p. ej. Google AdSense).
+            sitio y preferencias. Puede mostrarse publicidad contextual o de red sin aceptar cookies
+            de marketing; la publicidad personalizada y la medición analítica solo si lo autorizas.
             Puedes aceptar, rechazar lo no esencial o configurar. Más detalle en la{' '}
             <a href="/privacy.html" target="_blank" rel="noopener noreferrer">
               Política de Privacidad
@@ -100,17 +101,6 @@ export default function CookieBanner() {
                 type="checkbox"
                 checked={analytics}
                 onChange={e => setAnalytics(e.target.checked)}
-              />
-            </label>
-            <label className="ck__row">
-              <span>
-                <strong>Publicidad</strong>
-                <small>Anuncios y medición de Google AdSense y socios.</small>
-              </span>
-              <input
-                type="checkbox"
-                checked={advertising}
-                onChange={e => setAdvertising(e.target.checked)}
               />
             </label>
           </div>

@@ -199,16 +199,6 @@
   cursor: default;
 }
 
-.topbar__icon--accent {
-  background: linear-gradient(180deg, #5ea0ff, #2f6bdd);
-  color: #fff;
-  box-shadow: 0 6px 18px -6px rgba(40, 110, 240, 0.8);
-}
-
-.topbar__icon--accent:hover:not(:disabled) {
-  background: linear-gradient(180deg, #77b0ff, #3877ee);
-}
-
 .topbar__count {
   position: absolute;
   top: 2px;

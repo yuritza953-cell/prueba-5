@@ -93,7 +93,9 @@ export default function StreamPlayer({
   episode = null,
   audioLang = 'es-MX',
   availableLangs = null,
-  onAudioLangChange = null
+  onAudioLangChange = null,
+  /** Callback opcional: () => Promise|void — re-pide /api/stream sin recargar la página */
+  onReResolve = null
 }) {
   const t = useT();
   const videoRef = useRef(null);
@@ -130,11 +132,14 @@ export default function StreamPlayer({
   const pauseAtRef = useRef(0);
   const resumePosRef = useRef(0);
   const recoverTriesRef = useRef(0);
+  const hadPlaybackRef = useRef(false); // llegó a reproducir de verdad
+  const reResolveTriesRef = useRef(0);
+  const reResolvingRef = useRef(false);
   const userStartedRef = useRef(false);
   const [verse] = useState(() => randomVerse());
   // null | 'ad' — anuncio antes de reproducir (Google AdSense slot)
   const [adPhase, setAdPhase] = useState(null);
-  const [adLeft, setAdLeft] = useState(5);
+  const [adLeft, setAdLeft] = useState(10);
   const adTimerRef = useRef(0);
   // Creatividad del preroll (VAST). null = cargando / sin relleno.
   const [preroll, setPreroll] = useState(null);
@@ -212,6 +217,11 @@ export default function StreamPlayer({
     setFailed('');
     setReady(false);
     setPlaying(false);
+    // Nueva tanda de streams (p.ej. tras re-resolve): no resetear hadPlayback ni posición
+    if (!reResolvingRef.current) {
+      reResolveTriesRef.current = 0;
+    }
+    recoverTriesRef.current = 0;
     setCurrent(0);
     setDuration(0);
     setLevels([]);
@@ -233,6 +243,26 @@ export default function StreamPlayer({
     const tryLoad = async () => {
       const chosen = pickSrc(list);
       if (!chosen) {
+        if (cancelled) return;
+        // A mitad de peli: no matar la sesión — re-resolver en silencio
+        const midPlay =
+          hadPlaybackRef.current &&
+          (resumePosRef.current > 15 || (videoRef.current && videoRef.current.currentTime > 15));
+        if (midPlay && typeof onReResolve === 'function' && reResolveTriesRef.current < 2 && !reResolvingRef.current) {
+          reResolveTriesRef.current += 1;
+          reResolvingRef.current = true;
+          resumePosRef.current = videoRef.current?.currentTime || resumePosRef.current || 0;
+          setBuffering(true);
+          setFailed(''); // no mostrar "no disponible"
+          console.warn('[player] mid-play exhaust → re-resolve try', reResolveTriesRef.current, 'pos', resumePosRef.current);
+          Promise.resolve()
+            .then(() => onReResolve({ position: resumePosRef.current, reason: 'mid_play_exhaust' }))
+            .catch(err => console.warn('[player] re-resolve fail', err))
+            .finally(() => {
+              reResolvingRef.current = false;
+            });
+          return;
+        }
         if (!cancelled) setFailed(emptyText || t('player.unavailable'));
         return;
       }
@@ -393,43 +423,44 @@ export default function StreamPlayer({
             hls.on(Hls.Events.ERROR, (_, data) => {
               if (cancelled || !data) return;
               if (!data.fatal) {
-                // agujeros / buffer stall: hls.js ya reintenta
                 if (data.details === 'bufferStalledError') setBuffering(true);
-                // Reintento proactivo en errores de fragmento no-fatales
                 if (data.type === Hls.ErrorTypes.NETWORK_ERROR && data.details !== 'manifestLoadError') {
-                  try { hls.startLoad(); } catch(_) {}
+                  try { hls.startLoad(); } catch (_) {}
                 }
                 return;
               }
               console.warn('[hls] fatal', data.type, data.details, 'try', recoverTriesRef.current);
               setBuffering(true);
-              // 1) recuperación in-place con back-off exponencial
-              if (recoverTriesRef.current < 4) {
+              try {
+                resumePosRef.current = video.currentTime || resumePosRef.current || 0;
+              } catch (_) {}
+              // 1) recover in-place (token momentáneo / hole)
+              if (recoverTriesRef.current < 6) {
                 recoverTriesRef.current += 1;
-                const delay = Math.min(500 * recoverTriesRef.current, 2000);
-                setTimeout(() => {
-                  if (cancelled) return;
+                const delay = Math.min(400 * recoverTriesRef.current, 2500);
+                window.setTimeout(() => {
+                  if (cancelled || !hlsRef.current) return;
                   try {
-                    resumePosRef.current = video.currentTime || resumePosRef.current || 0;
                     if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
-                      hls.startLoad();
+                      hlsRef.current.startLoad();
                       return;
                     }
                     if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
-                      hls.recoverMediaError();
+                      hlsRef.current.recoverMediaError();
                       return;
                     }
+                    // otros fatales: recargar nivel
+                    hlsRef.current.startLoad();
                   } catch (err) {
                     console.warn('[hls] recover fail', err);
+                    destroyHls();
+                    advance(list);
+                    tryLoad();
                   }
-                  // Si recover tampoco funciona, saltar al siguiente candidato
-                  destroyHls();
-                  advance(list);
-                  tryLoad();
                 }, delay);
                 return;
               }
-              // 2) siguiente candidato de stream
+              // 2) candidatos agotados de recover → siguiente URL o re-resolve
               destroyHls();
               advance(list);
               tryLoad();
@@ -464,7 +495,7 @@ export default function StreamPlayer({
       cancelled = true;
       destroyHls();
     };
-  }, [key, loading, autoPlay, emptyText, pickSrc, advance, streams, t]);
+  }, [key, loading, autoPlay, emptyText, pickSrc, advance, streams, t, onReResolve]);
 
   // Media events
   useEffect(() => {
@@ -955,7 +986,7 @@ export default function StreamPlayer({
     setUserStarted(false);
     userStartedRef.current = false;
     setAdPhase(null);
-    setAdLeft(5);
+    setAdLeft(10);
     window.clearInterval(adTimerRef.current);
   }, [tmdbId, imdbId, mediaType, season, episode, clearSubTrack]);
 
@@ -1014,10 +1045,10 @@ export default function StreamPlayer({
   };
 
   const startPlayback = () => {
-    // Siempre se puede pulsar: anuncio 5s (saltar al final)
+    // Siempre se puede pulsar: anuncio 10s (saltar al final)
     if (userStarted || adPhase === 'ad') return;
     setAdPhase('ad');
-    setAdLeft(5);
+    setAdLeft(10);
     window.clearInterval(adTimerRef.current);
     adTimerRef.current = window.setInterval(() => {
       setAdLeft(n => {
@@ -1032,7 +1063,7 @@ export default function StreamPlayer({
 
   useEffect(() => () => window.clearInterval(adTimerRef.current), []);
 
-  // Preroll: se pide el VAST mientras corre la cuenta de 5 s. Con
+  // Preroll: se pide el VAST mientras corre la cuenta de 10 s. Con
   // consentimiento de publicidad (Política §8); sin él queda el marcador.
   useEffect(() => {
     if (adPhase !== 'ad') return undefined;
@@ -1137,7 +1168,7 @@ export default function StreamPlayer({
           <div className="stream-player__ad-card">
             <p className="stream-player__ad-label">{t('player.ad')}</p>
             {/* Preroll VAST (HilltopAds): se reproduce dentro del player y la
-                cuenta de 5 s es la que habilita el botón de saltar. */}
+                cuenta de 10 s es la que habilita el botón de saltar. */}
             <div className="stream-player__ad-slot" id="kinora-preroll-ad">
               {preroll?.mediaUrl ? (
                 <a

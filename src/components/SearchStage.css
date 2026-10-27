@@ -56,6 +56,16 @@
   transform: translateX(-50%);
 }
 
+/* Cuenta ----------------------------------------------------------------- */
+
+/* En la portada no hay TopBar: la sesión vive arriba a la derecha. */
+.stage__account {
+  position: fixed;
+  top: 18px;
+  inset-inline-end: clamp(16px, 3vw, 40px);
+  z-index: 30;
+}
+
 /* Contenido -------------------------------------------------------------- */
 
 .stage__inner {

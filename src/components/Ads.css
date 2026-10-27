@@ -93,3 +93,65 @@
     border-radius: 10px;
   }
 }
+
+
+/* Panel integrado (glass) */
+.adslot--panel {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(12, 28, 72, 0.72), rgba(6, 14, 40, 0.55));
+  box-shadow:
+    inset 0 0 0 1px rgba(147, 197, 253, 0.14),
+    0 12px 28px -16px rgba(2, 8, 32, 0.85);
+  min-height: 0;
+}
+
+.adslot--panel .adslot__chrome {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 2;
+  pointer-events: none;
+  padding: 0;
+}
+
+.adslot--panel .adslot__badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(186, 210, 255, 0.72);
+  background: rgba(8, 18, 48, 0.65);
+  border: 1px solid rgba(147, 197, 253, 0.18);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.adslot--panel .adslot__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  min-height: 90px;
+  position: relative;
+  z-index: 1;
+}
+
+.adslot--panel:not(.is-filled) .adslot__body {
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 8px;
+}
+
+.adslot--panel iframe,
+.adslot--panel ins {
+  max-width: 100%;
+  border: 0 !important;
+  border-radius: 8px;
+}
+
+.adslot__chrome:empty,
+.adslot__badge:empty {
+  display: none !important;
+}
