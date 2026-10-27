@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 
 from streams.signing import proxy_url
-from streams.validate import validate_stream
+from streams.validate import validate_stream, is_bad_stream_url
 
 try:
     from streams.registry import resolve_with_chain
@@ -72,7 +72,7 @@ _REFERER_REQUIRED = (
 )
 
 _WORKER_BASE = (os.environ.get("STREAM_WORKER_BASE") or "").rstrip("/")
-_SIGN_TTL = int(os.environ.get("STREAM_SIGN_TTL", "7200"))
+_SIGN_TTL = int(os.environ.get("STREAM_SIGN_TTL", "21600"))
 _CACHE_TTL = int(os.environ.get("STREAM_CACHE_TTL", "1200"))  # 15–30 min para links (caducan)
 
 _cache: Dict[str, Tuple[float, Dict[str, Any]]] = {}
@@ -248,8 +248,8 @@ def resolve_stream(
         f"[stream] resolve media={media} id={tmdb_id} lang={lang} chain_lang={chain_lang}",
         flush=True,
     )
-    if (os.environ.get("STREAM_NO_CACHE") or "").lower() in ("1", "true", "yes"):
-        _cache_clear()
+    if (os.environ.get("STREAM_NO_CACHE") or "").lower() in ("1", "true", "yes") or skip_cache:
+        pass  # no limpiar todo el cache; solo saltar lectura abajo
     cid = str(tmdb_id or "").strip()
     if not cid:
         return {
@@ -369,11 +369,48 @@ def resolve_stream(
         if not url or url in seen:
             continue
         seen.add(url)
+        if is_bad_stream_url(url):
+            print(f"[stream] discard demo/bad host {url[:70]}", flush=True)
+            continue
         ok, verr = validate_stream(url, stream_type=stype or "hls", ref=ref)
         if not ok:
             print(f"[stream] discard probe fail {verr} {url[:70]}")
             continue
         streams.append(_annotate(url, stype, ref, force_proxy=force_proxy))
+
+    # Anime/TV: si ES no dio URL válida, probar cadena EN una sola vez (mejor cobertura)
+    if not streams and media == "tv" and not str(lang).startswith("en"):
+        print("[stream] soft EN retry for tv/anime after ES empty", flush=True)
+        try:
+            raw_en = resolve_with_chain(
+                lang="en",
+                content_type=media,
+                content_id=cid,
+                season=season,
+                episode=episode,
+                prefer=None,
+                alt_id=imdb_id,
+            )
+            c2 = list(raw_en.get("candidates") or [])
+            if raw_en.get("stream_url") and raw_en["stream_url"] not in c2:
+                c2.insert(0, raw_en["stream_url"])
+            for url in c2:
+                if not url or url in seen or is_bad_stream_url(url):
+                    continue
+                seen.add(url)
+                ok, verr = validate_stream(url, stream_type=raw_en.get("stream_type") or "hls", ref=raw_en.get("ref_url") or "")
+                if not ok:
+                    continue
+                streams.append(_annotate(url, raw_en.get("stream_type"), raw_en.get("ref_url") or "", force_proxy=force_proxy))
+                raw = raw_en
+                raw["lang_fallback"] = True
+                raw["requested_lang"] = lang
+                stype = raw_en.get("stream_type") or stype
+                ref = raw_en.get("ref_url") or ref
+                if streams:
+                    break
+        except Exception as en_exc:
+            print(f"[stream] soft EN retry fail: {en_exc}", flush=True)
 
     tried = raw.get("tried") or []
     err = None if streams else (raw.get("error") or "no_stream_for_lang")

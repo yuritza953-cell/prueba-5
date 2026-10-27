@@ -88,9 +88,14 @@ def _resolve_servers(servers: List[Dict[str, Any]]) -> List[str]:
             print(f"[MOVIEDAYS] hoster fail {url[:60]}: {exc}")
             continue
         for u in streams or []:
-            if u and u not in seen:
-                seen.add(u)
-                out.append(u)
+            if not u or u in seen:
+                continue
+            low = u.lower()
+            if "test-streams.mux.dev" in low or "example.com" in low or "placeholder" in low:
+                print(f"[MOVIEDAYS] skip demo url {u[:70]}")
+                continue
+            seen.add(u)
+            out.append(u)
         if out:
             break  # early-exit con el primer hoster válido
     return out

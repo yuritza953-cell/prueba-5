@@ -130,15 +130,181 @@ def media_rows(rows, media, audio):
     return out
 
 
+
+# Aliases de búsqueda por género / intención (sin tildes, minúsculas)
+_GENRE_KEYWORDS = {
+    "animacion": [16],
+    "anime": [16],
+    "terror": [27],
+    "horror": [27],
+    "comedia": [35],
+    "comedy": [35],
+    "accion": [28],
+    "action": [28],
+    "aventura": [12],
+    "drama": [18],
+    "romance": [10749],
+    "romantica": [10749],
+    "romantico": [10749],
+    "familia": [10751],
+    "familiar": [10751],
+    "infantil": [10751, 10762],
+    "ninos": [10751, 10762],
+    "niños": [10751, 10762],
+    "kids": [10751, 10762],
+    "fantasia": [14],
+    "fantasy": [14],
+    "ciencia ficcion": [878],
+    "cienciaficcion": [878],
+    "scifi": [878],
+    "sci-fi": [878],
+    "documental": [99],
+    "crimen": [80],
+    "misterio": [9648],
+    "suspense": [53],
+    "suspenso": [53],
+    "suspensa": [53],
+    "thriller": [53],
+    "thrillers": [53],
+    "guerra": [10752],
+    "western": [37],
+    "musical": [10402],
+    "musica": [10402],
+    "historia": [36],
+    "historica": [36],
+}
+
+
+def _strip_accents(text: str) -> str:
+    import unicodedata
+    nk = unicodedata.normalize("NFD", text or "")
+    return "".join(ch for ch in nk if unicodedata.category(ch) != "Mn")
+
+
+def _parse_search_intent(q: str):
+    """Detecta géneros y tipo (película/serie) en consultas en lenguaje natural."""
+    raw = (q or "").strip().lower()
+    norm = _strip_accents(raw)
+    media_hint = None
+    if any(w in norm for w in ("serie", "series", "tv show", "temporada")):
+        media_hint = "tv"
+    if any(w in norm for w in ("pelicula", "peliculas", "movie", "movies", "film", "films", "cine")):
+        media_hint = "movie" if media_hint is None else media_hint
+
+    genre_ids = []
+    keys = sorted(_GENRE_KEYWORDS.keys(), key=len, reverse=True)
+    matched = []
+    for key in keys:
+        if key in norm:
+            for gid in _GENRE_KEYWORDS[key]:
+                if gid not in genre_ids:
+                    genre_ids.append(gid)
+            matched.append(key)
+
+    cleaned = norm
+    for noise in (
+        "peliculas de", "pelicula de", "series de", "serie de",
+        "peliculas", "pelicula", "series", "serie", "movies", "movie",
+        "de ", "del ", "la ", "las ", "los ", "el ", "un ", "una ",
+    ):
+        cleaned = cleaned.replace(noise, " ")
+    for key in matched:
+        cleaned = cleaned.replace(key, " ")
+    cleaned = " ".join(cleaned.split()).strip()
+
+    return genre_ids, media_hint, cleaned, raw
+
+
 def search(q, kind, audio, page=1):
+    """Búsqueda por título o por intención (género / tipo).
+
+    Ejemplos que caen en discover: "terror", "animación", "películas de comedia",
+    "series infantiles", "familiar".
+    """
     lang = "en-US" if audio == "sub" else "es-MX"
+    genre_ids, media_hint, cleaned, raw = _parse_search_intent(q)
+
+    # Solo intención de género (o género + tipo) → discover
+    use_discover = bool(genre_ids) and (not cleaned or len(cleaned) < 3)
+
+    if use_discover:
+        media = media_hint
+        if kind in ("movie", "tv"):
+            media = kind
+        # type=all y sin hint → mezcla movie + tv
+        medias = [media] if media else ["movie", "tv"]
+        if media is None and kind not in ("movie", "tv"):
+            medias = ["movie", "tv"]
+        elif media is None:
+            medias = ["movie"]
+
+        combined = []
+        data = {"page": page, "total_pages": 1, "results": []}
+        for m in medias:
+            params = {
+                "language": lang,
+                "include_adult": "false",
+                "sort_by": "popularity.desc",
+                "page": page,
+                "with_genres": ",".join(str(g) for g in genre_ids),
+            }
+            # umbral bajo para no quedarnos cortos en géneros menos densos
+            params["vote_count.gte"] = 20
+            if kind == "anime" or (cleaned == "" and "anime" in _strip_accents(raw)):
+                params["with_original_language"] = "ja"
+            try:
+                chunk = tmdb(f"discover/{m}", **params)
+            except Exception as exc:
+                print(f"[search] discover/{m} fail: {exc}")
+                continue
+            data = chunk  # último chunk para page meta
+            rows = media_rows(chunk.get("results", []), m, audio)
+            for item in rows:
+                # exige que el género pedido esté en genre_ids del resultado cuando TMDB lo trae
+                combined.append(item)
+        # dedupe por id+media
+        seen = set()
+        out = []
+        for item in combined:
+            key = (item.get("media"), item.get("id"))
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(item)
+        if kind == "anime":
+            out = [item for item in out if item.get("kind") == "anime"]
+        return out, data
+
+    # Título (posiblemente con palabras de género residuales)
+    query = cleaned if (genre_ids and cleaned) else q
     endpoint = {"movie": "search/movie", "tv": "search/tv"}.get(kind, "search/multi")
-    data = tmdb(endpoint, query=q, language=lang, include_adult="false", page=page)
+    data = tmdb(endpoint, query=query, language=lang, include_adult="false", page=page)
     base = kind if kind in ("movie", "tv") else None
     out = media_rows(data.get("results", []), base, audio)
+
+    # Si la búsqueda por texto viene floja y había género, complementa con discover
+    if genre_ids and len(out) < 6:
+        media = media_hint or ("tv" if kind == "tv" else "movie")
+        dparams = {
+            "language": lang,
+            "include_adult": "false",
+            "sort_by": "popularity.desc",
+            "page": page,
+            "with_genres": ",".join(str(g) for g in genre_ids),
+        }
+        dparams["vote_count.gte"] = 30
+        disc = tmdb(f"discover/{media}", **dparams)
+        extra = media_rows(disc.get("results", []), media, audio)
+        seen = {item.get("id") for item in out}
+        for item in extra:
+            if item.get("id") not in seen:
+                out.append(item)
+                seen.add(item.get("id"))
+
     if kind == "anime":
-        out = [item for item in out if item["kind"] == "anime"]
+        out = [item for item in out if item.get("kind") == "anime"]
     return out, data
+
 
 
 def home(audio):
@@ -176,6 +342,113 @@ def browse(media, category, page, audio):
         "page": data.get("page", page),
         "total_pages": data.get("total_pages", 1),
     }
+
+
+
+def title_shelves(media, audio, exclude_id=None):
+    """Filas extra en la ficha: Top 10, joyas, estrenos, comedia, top rated."""
+    lang = "en-US" if audio == "sub" else "es-MX"
+    media = "tv" if media == "tv" else "movie"
+    exclude_id = str(exclude_id) if exclude_id is not None else None
+
+    def take(rows, n=12):
+        out = []
+        for item in rows:
+            if exclude_id and str(item.get("id")) == exclude_id:
+                continue
+            out.append(item)
+            if len(out) >= n:
+                break
+        return out
+
+    shelves = []
+    try:
+        trend = tmdb(f"trending/{media}/week", language=lang)
+        shelves.append({
+            "key": "top10",
+            "title": "Top 10",
+            "items": take(media_rows(trend.get("results", []), media, audio), 10),
+        })
+    except Exception as exc:
+        print(f"[shelves] top10: {exc}")
+
+    try:
+        gems_params = {
+            "language": lang,
+            "include_adult": "false",
+            "sort_by": "vote_average.desc",
+            "page": 1,
+        }
+        gems_params["vote_count.gte"] = 300
+        gems_params["vote_average.gte"] = 7.2
+        gems = tmdb(f"discover/{media}", **gems_params)
+        shelves.append({
+            "key": "gems",
+            "title": "Joyas para descubrir",
+            "items": take(media_rows(gems.get("results", []), media, audio), 12),
+        })
+    except Exception as exc:
+        print(f"[shelves] gems: {exc}")
+
+    try:
+        if media == "movie":
+            fresh = tmdb("movie/now_playing", language=lang, page=1)
+            title = "Películas nuevas"
+        else:
+            fresh = tmdb("tv/on_the_air", language=lang, page=1)
+            title = "Series nuevas"
+        shelves.append({
+            "key": "new",
+            "title": title,
+            "items": take(media_rows(fresh.get("results", []), media, audio), 12),
+        })
+        # complementary: always offer both new movies and new series when space allows
+        if media == "movie":
+            other = tmdb("tv/on_the_air", language=lang, page=1)
+            shelves.append({
+                "key": "new_tv",
+                "title": "Series nuevas",
+                "items": take(media_rows(other.get("results", []), "tv", audio), 12),
+            })
+        else:
+            other = tmdb("movie/now_playing", language=lang, page=1)
+            shelves.append({
+                "key": "new_movies",
+                "title": "Películas nuevas",
+                "items": take(media_rows(other.get("results", []), "movie", audio), 12),
+            })
+    except Exception as exc:
+        print(f"[shelves] new: {exc}")
+
+    try:
+        comedy_params = {
+            "language": lang,
+            "include_adult": "false",
+            "sort_by": "popularity.desc",
+            "page": 1,
+            "with_genres": "35",
+        }
+        comedy_params["vote_count.gte"] = 80
+        comedy = tmdb(f"discover/{media}", **comedy_params)
+        shelves.append({
+            "key": "comedy",
+            "title": "Comedia",
+            "items": take(media_rows(comedy.get("results", []), media, audio), 12),
+        })
+    except Exception as exc:
+        print(f"[shelves] comedy: {exc}")
+
+    try:
+        top = tmdb(f"{media}/top_rated", language=lang, page=1)
+        shelves.append({
+            "key": "top_rated",
+            "title": "Mejor valoradas",
+            "items": take(media_rows(top.get("results", []), media, audio), 12),
+        })
+    except Exception as exc:
+        print(f"[shelves] top_rated: {exc}")
+
+    return [sh for sh in shelves if sh.get("items")]
 
 
 def related(mid, media, audio):
@@ -366,6 +639,7 @@ class Handler(SimpleHTTPRequestHandler):
             "/api/home",
             "/api/browse",
             "/api/related",
+            "/api/title_shelves",
             "/api/stream",
             "/api/providers",
             "/api/hls",
@@ -470,6 +744,7 @@ class Handler(SimpleHTTPRequestHandler):
                         imdb_id=p.get("imdb") or None,
                         prefer=p.get("provider") or None,
                         force_proxy=force_proxy,
+                        skip_cache=(p.get("nocache") or "").lower() in ("1", "true", "yes"),
                     )
                 except Exception as exc:
                     print(f"[stream] EXCEPTION: {type(exc).__name__}: {exc}")
@@ -502,6 +777,16 @@ class Handler(SimpleHTTPRequestHandler):
                     return self.send_json(400, {"error": "Falta el id del titulo"})
                 media = p.get("media") or "movie"
                 return self.send_json(200, {"items": related(mid, media, wanted_audio(p.get("audio")))})
+
+            if u.path == "/api/title_shelves":
+                try:
+                    mid = int(p.get("id", "0") or "0")
+                except ValueError:
+                    mid = 0
+                media = p.get("media") or "movie"
+                shelves = title_shelves(media, wanted_audio(p.get("audio")), exclude_id=mid or None)
+                return self.send_json(200, {"shelves": shelves})
+
 
             if u.path == "/api/detail":
                 try:

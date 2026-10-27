@@ -35,6 +35,30 @@ def _ref_headers(ref: str) -> dict:
     return h
 
 
+
+# Hosts / URLs que NUNCA son contenido real (demos de CDN, placeholders)
+_BAD_STREAM_MARKERS = (
+    "test-streams.mux.dev",
+    "mux.dev/x36",
+    "teststream",
+    "example.com",
+    "example.org",
+    "example.net",
+    "placeholder",
+    "about:blank",
+    "127.0.0.1",
+    "localhost",
+    "0.0.0.0",
+)
+
+
+def is_bad_stream_url(url: str) -> bool:
+    u = (url or "").lower()
+    if not u.startswith("https://"):
+        return True
+    return any(m in u for m in _BAD_STREAM_MARKERS)
+
+
 def validate_stream(
     url: str,
     *,
@@ -48,6 +72,8 @@ def validate_stream(
     """
     if not url or not url.startswith("https://"):
         return False, ERR_DEAD
+    if is_bad_stream_url(url):
+        return False, ERR_DECOY
 
     st = (stream_type or "hls").lower()
     headers = _ref_headers(ref)

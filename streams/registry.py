@@ -19,6 +19,7 @@ import threading
 from typing import Any, Dict, List, Optional
 
 from streams.base import empty_result
+from streams.validate import is_bad_stream_url
 
 
 def _es_chain() -> List[str]:
@@ -397,7 +398,7 @@ def _try_one_provider(
             _circuit_trip(pname, data["error_class"])
         data["resolved_id"] = ident
 
-        if data.get("stream_url") and not err:
+        if data.get("stream_url") and not err and not is_bad_stream_url(data.get("stream_url") or ""):
             # Validar stream_url y candidatos antes de dar al provider por ganador
             from streams.validate import validate_stream
 
@@ -497,7 +498,7 @@ def resolve_with_chain(
             best = None
             best_i = 10**9
             for name, res in results.items():
-                if res.get("stream_url") and not res.get("error"):
+                if res.get("stream_url") and not res.get("error") and not is_bad_stream_url(res.get("stream_url") or ""):
                     i = order.get(name, 10**9)
                     if i < best_i:
                         best = res

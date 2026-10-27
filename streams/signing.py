@@ -20,7 +20,7 @@ import time
 from typing import Optional, Tuple
 from urllib.parse import urlencode
 
-_SIGN_TTL = int(os.environ.get("STREAM_SIGN_TTL", "7200"))  # 2h default
+_SIGN_TTL = int(os.environ.get("STREAM_SIGN_TTL", "21600"))  # 2h default
 _KEY_RAW = (os.environ.get("STREAM_SIGN_KEY") or "").strip()
 if not _KEY_RAW:
     _KEY_RAW = secrets.token_hex(32)
